@@ -1,0 +1,61 @@
+{
+  "version": 2,
+  "skills": {
+    "alpha-cutout": {
+      "source": "Moh4696/open-3d-skills",
+      "commit": "53beb899e77f65d50160a3765f36f5ddb8b3c19b",
+      "sourceType": "github",
+      "skillPath": "skills/alpha-cutout/SKILL.md",
+      "computedHash": "1aff37e67ecc43108b0f5ae7d0999731af0440394d768facacfa44ace1f0fd71"
+    },
+    "cursor-rig": {
+      "source": "Moh4696/open-3d-skills",
+      "commit": "53beb899e77f65d50160a3765f36f5ddb8b3c19b",
+      "sourceType": "github",
+      "skillPath": "skills/cursor-rig/SKILL.md",
+      "computedHash": "e01ddbed9359b6f9a2171b0e1e6c7bf3918af166b54ba0b09a3e77fc2c82de07"
+    },
+    "exploded-view": {
+      "source": "Moh4696/open-3d-skills",
+      "commit": "53beb899e77f65d50160a3765f36f5ddb8b3c19b",
+      "sourceType": "github",
+      "skillPath": "skills/exploded-view/SKILL.md",
+      "computedHash": "d38867e16185466d3d77ce5afc310558cc196766cbaa2ffd8dd5e9c0d5894f85"
+    },
+    "frame-capture": {
+      "source": "Moh4696/open-3d-skills",
+      "commit": "53beb899e77f65d50160a3765f36f5ddb8b3c19b",
+      "sourceType": "github",
+      "skillPath": "skills/frame-capture/SKILL.md",
+      "computedHash": "0fe8cd9574c752366342b60288b3d86a0842e8a55fd2050ca2e68ec67a752c1c"
+    },
+    "motion-assets": {
+      "source": "Moh4696/open-3d-skills",
+      "commit": "53beb899e77f65d50160a3765f36f5ddb8b3c19b",
+      "sourceType": "github",
+      "skillPath": "skills/motion-assets/SKILL.md",
+      "computedHash": "44fae00b504782e5989b08cbdce1d8657880096d7adb54f3b791d43d68c666f1"
+    },
+    "scroll-film": {
+      "source": "Moh4696/open-3d-skills",
+      "commit": "53beb899e77f65d50160a3765f36f5ddb8b3c19b",
+      "sourceType": "github",
+      "skillPath": "skills/scroll-film/SKILL.md",
+      "computedHash": "74cea33c2ebb74a8b2f5a175bb732e3ca9fbff2cff500bf309a39f11f3c7a0d1"
+    },
+    "site-check": {
+      "source": "Moh4696/open-3d-skills",
+      "commit": "53beb899e77f65d50160a3765f36f5ddb8b3c19b",
+      "sourceType": "github",
+      "skillPath": "skills/site-check/SKILL.md",
+      "computedHash": "022dbba61a3d482f6d8fd4d63f56249d66eeabf55139ff871c6f243294406045"
+    },
+    "threejs-scene": {
+      "source": "Moh4696/open-3d-skills",
+      "commit": "53beb899e77f65d50160a3765f36f5ddb8b3c19b",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-scene/SKILL.md",
+      "computedHash": "a58bb8062356c2b7e96bb1e69d4b49fa3073dcebf6859928c41190cce472b758"
+    }
+  }
+}
