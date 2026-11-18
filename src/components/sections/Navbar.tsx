@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { useLanguage } from "@/components/LanguageProvider";
 import Logo from "@/components/ui/Logo";
 import { IconMenu, IconClose } from "@/components/ui/Icons";
@@ -46,16 +47,16 @@ export default function Navbar() {
       }`}
     >
       <div className="container flex h-20 items-center justify-between gap-4">
-        <a href="/#home" aria-label="FleetIntel Home" className="shrink-0">
+        <Link href="/#home" aria-label="FleetIntel Home" className="shrink-0">
           <Logo tone={scrolled ? "dark" : "light"} />
-        </a>
+        </Link>
 
         {/* Desktop Nav */}
         <nav aria-label="Primary navigation" className="hidden lg:flex items-center gap-7">
           {t.nav.links.map((link) => {
             const isActive = activeId === link.id;
             return (
-              <a
+              <Link
                 key={link.id}
                 href={`/#${link.id}`}
                 aria-current={isActive ? "page" : undefined}
@@ -77,7 +78,7 @@ export default function Navbar() {
                     }`}
                   />
                 )}
-              </a>
+              </Link>
             );
           })}
         </nav>
@@ -97,9 +98,9 @@ export default function Navbar() {
             {t.nav.switchTo}
           </button>
 
-          <a href="/#contact" className="btn-primary !min-h-[42px] !px-5 !text-sm">
+          <Link href="/#contact" className="btn-primary !min-h-[42px] !px-5 !text-sm">
             {t.nav.demo}
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Controls */}

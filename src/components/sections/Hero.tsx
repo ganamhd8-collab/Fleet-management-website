@@ -7,6 +7,8 @@ import LoginLink from "@/components/ui/LoginLink";
 import { IconArrow } from "@/components/ui/Icons";
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
+const BASE_PATH = process.env.NODE_ENV === "production" ? "/Fleet-management-website" : "";
+const HERO_VIDEO_SRC = `${BASE_PATH}/hero.mp4`;
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -31,7 +33,7 @@ export default function Hero() {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     // Fetch video into a local blob so scrubbing never stalls on network range requests
-    fetch("/hero.mp4")
+    fetch(HERO_VIDEO_SRC)
       .then((res) => (res.ok ? res.blob() : null))
       .then((blob) => {
         if (!blob || cancelled) return;
@@ -127,7 +129,7 @@ export default function Hero() {
         <div className="pointer-events-none absolute inset-0 z-[1] translate-y-[120px] sm:translate-y-[140px] md:translate-y-[155px]">
           <video
             ref={videoRef}
-            src="/hero.mp4"
+            src={HERO_VIDEO_SRC}
             poster={images.hero}
             muted
             playsInline
