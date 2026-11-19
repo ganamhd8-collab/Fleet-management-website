@@ -93,7 +93,7 @@ const en = {
   },
   solutions: {
     headline: "Everything Your Fleet Needs. Connected.",
-    intro: "Five services, built to work together. Select one to see what it covers.",
+    intro: "Eight integrated capabilities built to work together across your fleet.",
     groups: { visibility: "Visibility", health: "Vehicle health & cost", people: "People & compliance" },
     illustrative: "Representative imagery",
     items: [
@@ -102,6 +102,8 @@ const en = {
         group: "visibility",
         title: "Real-Time GPS Tracking",
         description:
+          "Know where your vehicles are, monitor their movements in real time, and gain better visibility over every journey.",
+        detailDescription:
           "Know where your vehicles are, monitor their movements in real time, and gain better visibility over every journey.",
         points: ["Live vehicle location", "Movement and route history", "Visibility over every journey"],
         image: "gps",
@@ -113,6 +115,8 @@ const en = {
         title: "Predictive Maintenance",
         description:
           "Move beyond reactive maintenance. Monitor vehicle health indicators, identify potential issues early, and plan maintenance before unexpected breakdowns disrupt your operations.",
+        detailDescription:
+          "Move beyond reactive maintenance. Monitor vehicle health indicators, identify potential issues early, and plan maintenance before unexpected breakdowns disrupt your operations.",
         points: ["Vehicle health indicators", "Early issue detection", "Planned maintenance"],
         image: "maintenance",
         alt: "Technician inspecting a vehicle engine",
@@ -123,6 +127,8 @@ const en = {
         title: "Intelligent Fuel Monitoring",
         description:
           "Monitor fuel levels and consumption through dedicated sensors and intelligent monitoring tools. Identify unusual changes and gain better control over fuel expenses.",
+        detailDescription:
+          "Monitor fuel levels and consumption through dedicated sensors and intelligent monitoring tools. Identify unusual changes and gain better control over fuel expenses.",
         points: ["Fuel level and consumption", "Unusual change detection", "Better control of fuel spend"],
         image: "fuel",
         alt: "Vehicle refuelling at a fuel station",
@@ -132,6 +138,8 @@ const en = {
         group: "people",
         title: "Driver Behavior Monitoring",
         description:
+          "Understand how your vehicles are being driven. Monitor driving patterns, identify risky behaviors, and use actionable insights to improve road safety and fleet performance.",
+        detailDescription:
           "Understand how your vehicles are being driven. Monitor driving patterns, identify risky behaviors, and use actionable insights to improve road safety and fleet performance.",
         points: ["Harsh Braking", "Harsh Acceleration", "Overspeeding", "Excessive Idling"],
         pointsLabel: "Example indicators",
@@ -144,9 +152,62 @@ const en = {
         title: "Insurance & Licensing Management",
         description:
           "Keep vehicle documents organized, monitor insurance and licensing expiry dates, and receive timely reminders to stay ahead of renewals and administrative requirements.",
+        detailDescription:
+          "Keep vehicle documents organized, monitor insurance and licensing expiry dates, and receive timely reminders to stay ahead of renewals and administrative requirements.",
         points: ["Organized vehicle documents", "Expiry date monitoring", "Timely renewal reminders"],
         image: "documents",
         alt: "Reviewing vehicle paperwork",
+      },
+      {
+        id: "cargo",
+        group: "health",
+        title: "Cargo Condition & Cold-Chain Monitoring",
+        description:
+          "Monitor real-time internal temperature, humidity, door-open events, and shock levels for sensitive or refrigerated cargo with instant breach alerts.",
+        detailDescription:
+          "Beyond tracking vehicle telemetry, the system integrates specialized in-container IoT sensors to monitor real-time environmental and physical conditions for sensitive shipments (such as refrigerated goods, pharmaceuticals, or fragile cargo). It continuously tracks internal temperature, humidity, door-open events, and shock/vibration levels, triggering instant alerts if thresholds are breached to prevent cargo spoilage or damage.",
+        points: [
+          "Internal temperature & humidity",
+          "Door-open event detection",
+          "Shock & vibration monitoring",
+          "Instant threshold breach alerts",
+        ],
+        image: "cargo",
+        alt: "Logistics distribution warehouse and cargo containers",
+      },
+      {
+        id: "ai-assistant",
+        group: "visibility",
+        title: "AI Vehicle Behavior & Asset Intelligence Chatbot",
+        description:
+          "Ask plain-language questions about any vehicle's operating behavior, fuel efficiency drift, or component wear to get instant ML-powered diagnoses and health scores.",
+        detailDescription:
+          "An interactive conversational assistant powered by Machine Learning that transforms raw vehicle telemetry into clear, actionable insights. Instead of manually sifting through complex sensor logs and diagnostic charts, fleet managers can ask questions in plain language about any vehicle's operating behavior, anomalous patterns, fuel efficiency drift, or component wear. The chatbot analyzes real-time and historical asset data against learned behavioral baselines to deliver instant diagnoses, vehicle health scores, and proactive maintenance recommendations before breakdowns occur.",
+        points: [
+          "Plain-language telemetry Q&A",
+          "Anomaly & fuel drift detection",
+          "ML-powered vehicle health scores",
+          "Proactive maintenance recommendations",
+        ],
+        image: "ai-assistant",
+        alt: "Aerial logistics network operations",
+      },
+      {
+        id: "cameras",
+        group: "people",
+        title: "Indoor & Outdoor Fleet Camera Surveillance",
+        description:
+          "Gain complete 360-degree visual visibility with dual-facing HD dashcams monitoring both road conditions ahead and in-cabin driver safety in real time.",
+        detailDescription:
+          "Equip your fleet with high-definition indoor and outdoor camera systems designed for continuous road and cabin monitoring. Outdoor cameras capture crystal-clear footage of traffic, blind spots, and external incidents, while in-cabin cameras detect distracted driving, fatigue, and safety compliance—providing instant cloud video playback and automated event recording for complete operational accountability.",
+        points: [
+          "Dual-facing HD road & cabin cameras",
+          "Distracted driving & fatigue alerts",
+          "Blind spot & incident video capture",
+          "Instant cloud playback & event clips",
+        ],
+        image: "cameras",
+        alt: "Commercial transport vehicle on open highway",
       },
     ],
   },
@@ -403,7 +464,7 @@ const ar: Dictionary = {
   },
   solutions: {
     headline: "كل ما يحتاجه أسطولك.. في منظومة مترابطة.",
-    intro: "خمس خدمات مصممة لتعمل معًا. اختر خدمة لتتعرف على تفاصيلها.",
+    intro: "ثماني قدرات متكاملة مصممة لتعمل معًا عبر أسطولك.",
     groups: { visibility: "الرؤية والمتابعة", health: "حالة المركبات والتكاليف", people: "السائقون والالتزامات" },
     illustrative: "صور توضيحية",
     items: [
@@ -412,6 +473,7 @@ const ar: Dictionary = {
         group: "visibility",
         title: "تتبع المركبات لحظيًا",
         description: "تابع مواقع مركباتك لحظيًا، وراقب تحركاتها ومساراتها، واحصل على رؤية واضحة لكل رحلة.",
+        detailDescription: "تابع مواقع مركباتك لحظيًا، وراقب تحركاتها ومساراتها، واحصل على رؤية واضحة لكل رحلة.",
         points: ["موقع المركبة لحظيًا", "سجل التحركات والمسارات", "رؤية واضحة لكل رحلة"],
         image: "gps",
         alt: "شاحنة تجارية على طريق سريع",
@@ -421,6 +483,8 @@ const ar: Dictionary = {
         group: "health",
         title: "الصيانة التنبؤية",
         description:
+          "انتقل من الصيانة بعد حدوث الأعطال إلى الصيانة الاستباقية. راقب مؤشرات حالة المركبات، واكتشف المشكلات المحتملة مبكرًا، وخطط للصيانة قبل أن تؤثر الأعطال على عملياتك.",
+        detailDescription:
           "انتقل من الصيانة بعد حدوث الأعطال إلى الصيانة الاستباقية. راقب مؤشرات حالة المركبات، واكتشف المشكلات المحتملة مبكرًا، وخطط للصيانة قبل أن تؤثر الأعطال على عملياتك.",
         points: ["مؤشرات حالة المركبة", "اكتشاف مبكر للمشكلات", "صيانة مخططة مسبقًا"],
         image: "maintenance",
@@ -432,6 +496,8 @@ const ar: Dictionary = {
         title: "مراقبة الوقود الذكية",
         description:
           "راقب مستويات الوقود ومعدلات استهلاكه من خلال الحساسات المخصصة وأدوات المتابعة الذكية. اكتشف التغيرات غير المعتادة وتحكم بشكل أفضل في مصروفات الوقود.",
+        detailDescription:
+          "راقب مستويات الوقود ومعدلات استهلاكه من خلال الحساسات المخصصة وأدوات المتابعة الذكية. اكتشف التغيرات غير المعتادة وتحكم بشكل أفضل في مصروفات الوقود.",
         points: ["مستوى الوقود ومعدل الاستهلاك", "رصد التغيرات غير المعتادة", "تحكم أفضل في المصروفات"],
         image: "fuel",
         alt: "مركبة تتزود بالوقود في محطة",
@@ -441,6 +507,8 @@ const ar: Dictionary = {
         group: "people",
         title: "تحليل سلوك السائقين",
         description:
+          "افهم كيف تُستخدم مركباتك على الطريق. حلل أنماط القيادة، واكتشف السلوكيات الخطرة، واستفد من البيانات لتحسين السلامة ورفع كفاءة أداء الأسطول.",
+        detailDescription:
           "افهم كيف تُستخدم مركباتك على الطريق. حلل أنماط القيادة، واكتشف السلوكيات الخطرة، واستفد من البيانات لتحسين السلامة ورفع كفاءة أداء الأسطول.",
         points: ["الفرملة المفاجئة", "التسارع المفاجئ", "تجاوز السرعة", "التشغيل دون حركة لفترات طويلة"],
         pointsLabel: "أمثلة على المؤشرات",
@@ -453,9 +521,62 @@ const ar: Dictionary = {
         title: "إدارة التأمينات والتراخيص",
         description:
           "نظم مستندات مركباتك، وتابع تواريخ انتهاء وثائق التأمين والتراخيص، واحصل على تنبيهات مسبقة تساعدك على إدارة التجديدات والمتطلبات الإدارية في الوقت المناسب.",
+        detailDescription:
+          "نظم مستندات مركباتك، وتابع تواريخ انتهاء وثائق التأمين والتراخيص، واحصل على تنبيهات مسبقة تساعدك على إدارة التجديدات والمتطلبات الإدارية في الوقت المناسب.",
         points: ["مستندات منظمة لكل مركبة", "متابعة تواريخ الانتهاء", "تنبيهات تجديد مسبقة"],
         image: "documents",
         alt: "مراجعة مستندات المركبات",
+      },
+      {
+        id: "cargo",
+        group: "health",
+        title: "مراقبة حالة البضائع وسلسلة التبريد",
+        description:
+          "راقب درجة الحرارة الداخلية والرطوبة وحالات فتح الأبواب ومستويات الاهتزاز للبضائع الحساسة أو المبردة لحظيًا مع تنبيهات فورية عند أي تجاوز.",
+        detailDescription:
+          "إلى جانب تتبع بيانات المركبة، تدمج المنظومة حساسات إنترنت الأشياء المتخصصة داخل الحاويات لمراقبة الظروف البيئية والفيزيائية للشحنات الحساسة (مثل البضائع المبردة، والأدوية، والشحنات القابلة للكسر) لحظيًا. تتابع المنظومة باستمرار درجة الحرارة الداخلية، والرطوبة، وحالات فتح الأبواب، ومستويات الصدمات والاهتزاز، وترسل تنبيهات فورية عند تجاوز الحدود المسموحة لمنع تلف البضائع أو فسادها.",
+        points: [
+          "مراقبة الحرارة والرطوبة الداخلية",
+          "رصد حالات فتح الأبواب",
+          "قياس الصدمات والاهتزاز",
+          "تنبيهات فورية عند تجاوز الحدود",
+        ],
+        image: "cargo",
+        alt: "مستودع لوجستي وحاويات شحن",
+      },
+      {
+        id: "ai-assistant",
+        group: "visibility",
+        title: "المساعد الذكي لتحليل سلوك المركبات والأصول",
+        description:
+          "اطرح أسئلة بلغة طبيعية عن سلوك تشغيل أي مركبة أو تراجع كفاءة الوقود أو تآكل القطع للحصول على تشخيص فوري ومؤشرات صحة مدعومة بتعلم الآلة.",
+        detailDescription:
+          "مساعد محادثة تفاعلي مدعوم بتعلم الآلة يحوّل بيانات المركبات الخام إلى رؤى واضحة وقابلة للتنفيذ. بدلًا من البحث اليدوي في سجلات الحساسات المعقدة ورسوم التشخيص، يمكن لمديري الأساطيل طرح أسئلة مباشرة عن سلوك تشغيل أي مركبة أو الأنماط غير المعتادة أو تراجع كفاءة الوقود أو تآكل المكونات. يحلل المساعد البيانات اللحظية والتاريخية مقارنة بالخطوط المرجعية لتقديم تشخيصات فورية، ودرجات صحة المركبات، وتوصيات صيانة استباقية قبل وقوع الأعطال.",
+        points: [
+          "أسئلة مباشرة بلغة طبيعية",
+          "رصد الأنماط غير المعتادة وتراجع الوقود",
+          "مؤشرات صحة المركبة بتعلم الآلة",
+          "توصيات صيانة استباقية",
+        ],
+        image: "ai-assistant",
+        alt: "شبكة عمليات لوجستية من الجو",
+      },
+      {
+        id: "cameras",
+        group: "people",
+        title: "كاميرات المراقبة الداخلية والخارجية للمركبات",
+        description:
+          "احصل على رؤية بصرية شاملة عبر كاميرات عالية الدقة تراقب الطريق أمام المركبة وسلامة السائق داخل المقصورة لحظيًا.",
+        detailDescription:
+          "جهّز أسطولك بأنظمة كاميرات داخلية وخارجية عالية الدقة مصممة للمراقبة المستمرة للطريق والمقصورة. توثق الكاميرات الخارجية حركة المرور والنقاط العمياء والحوادث بوضوح تام، بينما ترصد الكاميرات الداخلية تشتت الانتباه والإجهاد والالتزام بمعايير السلامة—مع إتاحة استعراض الفيديو سحابيًا وتسجيل الأحداث تلقائيًا لتعزيز المساءلة التشغيلية.",
+        points: [
+          "كاميرات مزدوجة للطريق والمقصورة",
+          "رصد تشتت الانتباه والإجهاد",
+          "تغطية النقاط العمياء والحوادث",
+          "تشغيل سحابي فوري وتوثيق للأحداث",
+        ],
+        image: "cameras",
+        alt: "مركبة نقل تجارية على طريق سريع",
       },
     ],
   },

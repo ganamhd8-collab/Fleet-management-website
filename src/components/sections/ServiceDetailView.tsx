@@ -8,12 +8,15 @@ import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/sections/Footer";
 import { IconArrow, IconCheck } from "@/components/ui/Icons";
 
-const detailGradients: Record<string, string> = {
-  gps: "linear-gradient(135deg, #14213D 0%, #283A88 100%)",
-  maintenance: "linear-gradient(135deg, #283A88 0%, #2A7EBD 100%)",
-  fuel: "linear-gradient(135deg, #2A7EBD 0%, #329BCF 100%)",
-  driver: "linear-gradient(135deg, #14213D 0%, #329BCF 60%, #65C2C8 100%)",
-  documents: "linear-gradient(135deg, #14213D 0%, #2B6B6B 60%, #7FC4A5 100%)",
+const detailColors: Record<string, string> = {
+  gps: "#14213D",
+  maintenance: "#283A88",
+  fuel: "#2A7EBD",
+  driver: "#65C2C8",
+  documents: "#7FC4A5",
+  cargo: "#329BCF",
+  "ai-assistant": "#1E3A8A",
+  cameras: "#8493A5",
 };
 
 export default function ServiceDetailView({ serviceId }: { serviceId: string }) {
@@ -21,9 +24,12 @@ export default function ServiceDetailView({ serviceId }: { serviceId: string }) 
 
   const idx = t.solutions.items.findIndex((i) => i.id === serviceId);
   const service = idx >= 0 ? t.solutions.items[idx] : t.solutions.items[0];
-  const serviceNumber = idx >= 0 ? `0${idx + 1}` : "01";
-  const heroBg = detailGradients[service.id] ?? detailGradients.gps;
+  const heroBg = detailColors[service.id] ?? detailColors.gps;
   const imgSrc = images.solutions[service.image as keyof typeof images.solutions];
+  const fullCopy =
+    "detailDescription" in service && service.detailDescription
+      ? service.detailDescription
+      : service.description;
 
   return (
     <>
@@ -47,11 +53,8 @@ export default function ServiceDetailView({ serviceId }: { serviceId: string }) 
             </Link>
 
             <div className="max-w-3xl space-y-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/80">
-                {lang === "ar" ? `الخدمة ${serviceNumber}` : `SERVICE ${serviceNumber}`}
-              </p>
               <h1 className="text-display font-bold text-white">{service.title}</h1>
-              <p className="text-lead text-white/85 max-w-prose">{service.description}</p>
+              <p className="text-lead text-white/90 max-w-prose">{service.description}</p>
             </div>
           </div>
         </section>
@@ -65,7 +68,7 @@ export default function ServiceDetailView({ serviceId }: { serviceId: string }) 
               </h2>
 
               <p className="text-base leading-relaxed text-ink-muted max-w-prose">
-                {service.description}
+                {fullCopy}
               </p>
 
               <ul className="space-y-3 pt-2">
