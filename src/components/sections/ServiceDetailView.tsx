@@ -9,14 +9,14 @@ import Footer from "@/components/sections/Footer";
 import { IconArrow, IconCheck } from "@/components/ui/Icons";
 
 const detailColors: Record<string, string> = {
-  gps: "#14213D",
-  maintenance: "#283A88",
-  fuel: "#2A7EBD",
-  driver: "#65C2C8",
-  documents: "#7FC4A5",
-  cargo: "#329BCF",
-  "ai-assistant": "#1E3A8A",
-  cameras: "#8493A5",
+  gps: "#102038",            // Row 1: Deep Navy
+  maintenance: "#293C82",    // Row 1: Royal/Indigo Blue
+  fuel: "#287BBD",           // Row 1: Medium Brand Blue
+  driver: "#339CD4",         // Row 1: Bright Sky/Cyan Blue
+  documents: "#102038",      // Row 2: Deep Navy
+  cargo: "#287BBD",          // Row 2: Medium Brand Blue
+  "ai-assistant": "#293C82", // Row 2: Royal/Indigo Blue
+  cameras: "#5A6E82",        // Row 2: Slate/Steel Blue
 };
 
 export default function ServiceDetailView({ serviceId }: { serviceId: string }) {
