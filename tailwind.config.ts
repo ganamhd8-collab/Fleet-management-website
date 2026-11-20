@@ -10,7 +10,7 @@ const config: Config = {
     },
     extend: {
       colors: {
-        // Official FleetIntel palette
+        // Official AWA Fleet Guards palette
         navy: { DEFAULT: "#14213D", 950: "#0D1629", 900: "#14213D", 800: "#1B2B4E" },
         royal: "#283A88",
         ocean: {

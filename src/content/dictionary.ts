@@ -58,7 +58,7 @@ const en = {
         id: "05",
         tag: "Complete Fleet Visibility",
         headline: "Complete Visibility with Greater Control",
-        description: "Discover a smarter approach to fleet management with FleetIntel.",
+        description: "Discover a smarter approach to fleet management with AWA Fleet Guards.",
       },
     ],
     overlay: {
@@ -82,7 +82,7 @@ const en = {
   },
   about: {
     headline: "Technology That Connects Every Part of Your Fleet.",
-    p1: "FleetIntel brings dedicated hardware, intelligent software, and fleet management capabilities together to help businesses manage their operations with greater visibility, control, and confidence.",
+    p1: "AWA Fleet Guards brings dedicated hardware, intelligent software, and fleet management capabilities together to help businesses manage their operations with greater visibility, control, and confidence.",
     p2: "From vehicle tracking to predictive maintenance and operational management, we provide an integrated ecosystem designed around the way your business works.",
     pillars: [
       { id: "hardware", title: "Hardware & Sensors", text: "Dedicated devices installed in your vehicles." },
@@ -218,7 +218,7 @@ const en = {
       { n: "02", title: "Monitor", text: "Access vehicle, fuel, driver, and maintenance data through one centralized platform." },
       { n: "03", title: "Optimize", text: "Turn operational insights into better decisions, improved efficiency, and smarter fleet management." },
     ],
-    flow: ["Vehicles & Sensors", "FleetIntel Platform", "Operational Insights"],
+    flow: ["Vehicles & Sensors", "AWA Fleet Guards Platform", "Operational Insights"],
   },
   platform: {
     headline: "Your Fleet. Clearly in View.",
@@ -306,7 +306,7 @@ const en = {
       fleetSize: "Fleet size",
       services: "Services of interest",
       servicesHint: "Select all that apply",
-      consent: "I agree that FleetIntel may contact me about my demo request and process my details for this purpose.",
+      consent: "I agree that AWA Fleet Guards may contact me about my demo request and process my details for this purpose.",
       select: "Select",
     },
     countries: ["Egypt", "Saudi Arabia", "United Arab Emirates", "Kuwait", "Qatar", "Bahrain", "Oman", "Other"],
@@ -429,7 +429,7 @@ const ar: Dictionary = {
         id: "05",
         tag: "رؤية شاملة",
         headline: "رؤية شاملة وتحكم أكبر",
-        description: "اكتشف أسلوبًا أكثر ذكاءً لإدارة الأساطيل مع FleetIntel.",
+        description: "اكتشف أسلوبًا أكثر ذكاءً لإدارة الأساطيل مع AWA Fleet Guards.",
       },
     ],
     overlay: {
@@ -453,7 +453,7 @@ const ar: Dictionary = {
   },
   about: {
     headline: "تكنولوجيا تربط كل تفاصيل أسطولك.",
-    p1: "تجمع FleetIntel بين الأجهزة الذكية والبرمجيات المتطورة وحلول إدارة الأساطيل، لمساعدة الشركات على إدارة عملياتها برؤية أوضح وتحكم أكبر وثقة أعلى.",
+    p1: "تجمع AWA Fleet Guards بين الأجهزة الذكية والبرمجيات المتطورة وحلول إدارة الأساطيل، لمساعدة الشركات على إدارة عملياتها برؤية أوضح وتحكم أكبر وثقة أعلى.",
     p2: "من تتبع المركبات إلى الصيانة التنبؤية وإدارة العمليات التشغيلية، نقدم منظومة متكاملة مصممة لتواكب احتياجات أعمالك.",
     pillars: [
       { id: "hardware", title: "الأجهزة والحساسات", text: "أجهزة مخصصة تُركّب في مركباتك." },
@@ -587,7 +587,7 @@ const ar: Dictionary = {
       { n: "02", title: "المتابعة", text: "تابع بيانات المركبات والوقود والسائقين والصيانة من منصة موحدة." },
       { n: "03", title: "التحسين", text: "حوّل البيانات التشغيلية إلى قرارات أفضل وكفاءة أعلى وإدارة أكثر ذكاءً." },
     ],
-    flow: ["المركبات والحساسات", "منصة FleetIntel", "رؤى تشغيلية"],
+    flow: ["المركبات والحساسات", "منصة AWA Fleet Guards", "رؤى تشغيلية"],
   },
   platform: {
     headline: "صورة كاملة لأسطولك.. من مكان واحد.",
@@ -674,7 +674,7 @@ const ar: Dictionary = {
       fleetSize: "حجم الأسطول",
       services: "الخدمات المطلوبة",
       servicesHint: "يمكنك اختيار أكثر من خدمة",
-      consent: "أوافق على أن تتواصل معي FleetIntel بخصوص طلب العرض التجريبي، وأن تعالج بياناتي لهذا الغرض.",
+      consent: "أوافق على أن تتواصل معي AWA Fleet Guards بخصوص طلب العرض التجريبي، وأن تعالج بياناتي لهذا الغرض.",
       select: "اختر",
     },
     countries: ["مصر", "المملكة العربية السعودية", "الإمارات العربية المتحدة", "الكويت", "قطر", "البحرين", "عُمان", "دولة أخرى"],

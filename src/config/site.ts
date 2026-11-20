@@ -1,12 +1,12 @@
 /**
- * Central, editable site configuration.
- * Everything here is a placeholder until FleetIntel provides real values.
+ * Central, editable site configuration for AWA Fleet Guards.
  */
 export const siteConfig = {
-  brandName: "FleetIntel",
+  brandName: "AWA Fleet Guards",
 
-  /** Path to a logo file in /public. Leave null to render the text wordmark. */
-  logoSrc: null as string | null,
+  /** Path to logo files in /public. */
+  logoWhiteSrc: "/logo-white.svg",
+  logoDarkSrc: "/logo-dark.svg",
 
   /**
    * Client dashboard destination. The real dashboard is not live yet,

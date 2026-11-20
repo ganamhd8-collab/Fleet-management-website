@@ -206,7 +206,7 @@ export default function Hero() {
             src={images.hero}
             srcSet={`${images.heroMobile} 640w, ${images.hero} 1080w`}
             sizes="(max-width: 768px) 100vw, 100vw"
-            alt="FleetIntel connected fleet commercial vehicle"
+            alt="AWA Fleet Guards connected fleet commercial vehicle"
             fetchPriority="high"
             loading="eager"
             decoding="sync"

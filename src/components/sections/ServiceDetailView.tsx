@@ -9,17 +9,17 @@ import Footer from "@/components/sections/Footer";
 import { IconArrow, IconCheck } from "@/components/ui/Icons";
 
 const detailColors: Record<string, string> = {
-  // Row 1: Core Fleet & Telemetry
-  gps: "#0B192C",            // Card 1: Deepest Brand Navy
-  maintenance: "#133154",    // Card 2: Midnight Navy-Blue
-  fuel: "#1B4A72",           // Card 3: Deep Steel-Blue
-  driver: "#236CA6",         // Card 4: FleetIntel Primary Blue
+  // Row 1: Core Telemetry & Operations
+  gps: "#14213D",             // Card 1: Midnight Navy
+  maintenance: "#283A88",     // Card 2: Royal Indigo
+  fuel: "#2A7EBD",            // Card 3: Corporate Blue
+  driver: "#329BCF",          // Card 4: Sky Blue
 
-  // Row 2: Specialized Operations & AI
-  documents: "#134454",      // Card 5: Dark Oceanic Teal-Blue
-  cargo: "#172F4A",          // Card 6: Deep Slate-Navy
-  "ai-assistant": "#1A4372", // Card 7: Rich Cobalt-Navy
-  cameras: "#123F4D",        // Card 8: Deep Petrol / Teal-Navy
+  // Row 2: Management, Specialized Monitoring & AI
+  documents: "#8493A5",       // Card 5: Slate Gray
+  cargo: "#14213D",           // Card 6: Midnight Navy
+  "ai-assistant": "#65C2C8",  // Card 7: Turquoise
+  cameras: "#7FC4A5",         // Card 8: Mint Green
 };
 
 export default function ServiceDetailView({ serviceId }: { serviceId: string }) {
@@ -34,15 +34,17 @@ export default function ServiceDetailView({ serviceId }: { serviceId: string }) 
       ? service.detailDescription
       : service.description;
 
+  const isLightCard = ["documents", "ai-assistant", "cameras"].includes(service.id);
+
   return (
     <>
-      <Navbar />
+      <Navbar forceTone={isLightCard ? "dark" : undefined} />
 
       <main id="main-content">
         {/* Colored Brand Header */}
         <section
           className="pt-32 pb-16 md:pt-36 md:pb-24 text-white"
-          style={{ background: heroBg }}
+          style={{ backgroundColor: heroBg }}
         >
           <div className="container space-y-6">
             <Link
@@ -57,7 +59,7 @@ export default function ServiceDetailView({ serviceId }: { serviceId: string }) 
 
             <div className="max-w-3xl space-y-4">
               <h1 className="text-display font-bold text-white">{service.title}</h1>
-              <p className="text-lead text-white/90 max-w-prose">{service.description}</p>
+              <p className="text-lead text-white/95 max-w-prose">{service.description}</p>
             </div>
           </div>
         </section>

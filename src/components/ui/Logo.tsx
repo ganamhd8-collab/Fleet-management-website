@@ -1,24 +1,35 @@
 import React from "react";
-import { siteConfig } from "@/config/site";
 
-/** Text wordmark until a real logo is provided via siteConfig.logoSrc. */
-export default function Logo({ tone = "dark" }: { tone?: "dark" | "light" }) {
-  if (siteConfig.logoSrc) {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img src={siteConfig.logoSrc} alt={siteConfig.brandName} className="h-8 w-auto" />;
-  }
-  const color = tone === "light" ? "text-white" : "text-navy";
+const BASE_PATH = process.env.NODE_ENV === "production" ? "/Fleet-management-website" : "";
+
+export interface LogoProps {
+  tone?: "dark" | "light";
+  className?: string;
+  height?: number;
+}
+
+/**
+ * Context-aware brand logo for AWA Fleet Guards:
+ * - On Dark Backgrounds (tone="light"): renders the white SVG (logo awa.svg)
+ * - On Light Backgrounds (tone="dark"): renders the dark blue SVG (awa logo dark blue.svg)
+ */
+export default function Logo({
+  tone = "dark",
+  className = "h-[48px] sm:h-[52px] md:h-[56px] w-auto",
+  height,
+}: LogoProps) {
+  const isWhite = tone === "light";
+  const logoSrc = isWhite
+    ? `${BASE_PATH}/logo-white.svg`
+    : `${BASE_PATH}/logo-dark.svg`;
+
   return (
-    <span dir="ltr" className={`inline-flex items-center gap-2 text-[19px] font-semibold tracking-tight ${color}`}>
-      <svg viewBox="0 0 28 28" className="h-7 w-7" aria-hidden="true">
-        <circle cx="7" cy="20" r="3" fill="#65C2C8" />
-        <circle cx="21" cy="8" r="3" fill="#329BCF" />
-        <circle cx="20" cy="21" r="2.2" fill="#7FC4A5" />
-        <path d="M7 20 L21 8 M21 8 L20 21 M7 20 L20 21" stroke="currentColor" strokeWidth="1.4" opacity="0.55" />
-      </svg>
-      <span>
-        Fleet<span className="font-bold">Intel</span>
-      </span>
-    </span>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={logoSrc}
+      alt="AWA Fleet Guards Logo"
+      className={`object-contain transition-all duration-200 ${className}`}
+      style={height ? { height: `${height}px`, width: "auto" } : undefined}
+    />
   );
 }

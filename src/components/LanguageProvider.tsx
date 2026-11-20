@@ -11,7 +11,7 @@ type LanguageContextValue = {
 };
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
-const STORAGE_KEY = "fleetintel-lang";
+const STORAGE_KEY = "awafleetguards-lang";
 
 /** Returns the id of the section currently nearest the top of the viewport. */
 function currentSectionId(): string | null {

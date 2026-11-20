@@ -15,7 +15,7 @@ export default function Footer() {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
           {/* Brand */}
           <div className="lg:col-span-4 space-y-4">
-            <Logo tone="light" />
+            <Logo tone="light" className="h-[54px] md:h-[62px] w-auto" />
             <p className="max-w-xs text-sm leading-relaxed text-white/70">{t.footer.tagline}</p>
           </div>
 

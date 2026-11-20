@@ -7,7 +7,7 @@ import Hero from "@/components/sections/Hero";
 import Solutions from "@/components/sections/Solutions";
 import HowItWorks from "@/components/sections/HowItWorks";
 import Industries from "@/components/sections/Industries";
-import WhyFleetIntel from "@/components/sections/WhyFleetIntel";
+import WhyAWAFleetGuards from "@/components/sections/WhyAWAFleetGuards";
 import BookDemo from "@/components/sections/BookDemo";
 import Footer from "@/components/sections/Footer";
 
@@ -30,7 +30,7 @@ export default function HomePage() {
         <Solutions />
         <HowItWorks />
         <Industries />
-        <WhyFleetIntel />
+        <WhyAWAFleetGuards />
         <BookDemo />
       </main>
 

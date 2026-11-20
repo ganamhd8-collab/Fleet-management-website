@@ -6,19 +6,19 @@ import { useLanguage } from "@/components/LanguageProvider";
 import Reveal from "@/components/ui/Reveal";
 import { IconArrow } from "@/components/ui/Icons";
 
-/** Cohesive 8-shade Navy-to-Teal-Blue scale derived directly from FleetIntel's real brand tokens */
+/** Official brand color mapping for the 8 Service Cards */
 const cardColors: Record<string, string> = {
-  // Row 1: Core Fleet & Telemetry — Smooth progression from Deepest Navy to Primary Brand Blue
-  gps: "#0B192C",            // Card 1: Deepest Brand Navy (Site Hero & Dark Theme base)
-  maintenance: "#133154",    // Card 2: Midnight Navy-Blue
-  fuel: "#1B4A72",           // Card 3: Deep Steel-Blue
-  driver: "#236CA6",         // Card 4: FleetIntel Primary Blue (Matches "Book a Demo" button)
+  // Row 1: Core Telemetry & Operations
+  gps: "#14213D",             // Card 1: Midnight Navy
+  maintenance: "#283A88",     // Card 2: Royal Indigo
+  fuel: "#2A7EBD",            // Card 3: Corporate Blue
+  driver: "#329BCF",          // Card 4: Sky Blue
 
-  // Row 2: Specialized Operations & AI — Complementary oceanic teal & deep cobalt-navy progression
-  documents: "#134454",      // Card 5: Dark Oceanic Teal-Blue (Echoes logo teal)
-  cargo: "#172F4A",          // Card 6: Deep Slate-Navy
-  "ai-assistant": "#1A4372", // Card 7: Rich Cobalt-Navy
-  cameras: "#123F4D",        // Card 8: Deep Petrol / Teal-Navy
+  // Row 2: Management, Specialized Monitoring & AI
+  documents: "#8493A5",       // Card 5: Slate Gray
+  cargo: "#14213D",           // Card 6: Midnight Navy
+  "ai-assistant": "#65C2C8",  // Card 7: Turquoise
+  cameras: "#7FC4A5",         // Card 8: Mint Green
 };
 
 export default function Solutions() {

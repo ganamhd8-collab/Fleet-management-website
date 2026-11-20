@@ -32,14 +32,24 @@ const archivo = Archivo({
   display: "swap",
 });
 
+const BASE_PATH = process.env.NODE_ENV === "production" ? "/Fleet-management-website" : "";
+
 export const metadata: Metadata = {
-  title: "FleetIntel — One Integrated Ecosystem. Complete Fleet Intelligence.",
+  title: "AWA Fleet Guards — One Integrated Ecosystem. Complete Fleet Intelligence.",
   description:
-    "FleetIntel combines dedicated hardware, intelligent software, and fleet operations management for businesses in Egypt, Saudi Arabia, and the GCC.",
+    "AWA Fleet Guards combines dedicated hardware, intelligent software, and fleet operations management for businesses in Egypt, Saudi Arabia, and the GCC.",
   openGraph: {
-    title: "FleetIntel — Integrated Fleet Management",
+    title: "AWA Fleet Guards — Integrated Fleet Management",
     description: "Connect your vehicles, drivers, and operations through one integrated fleet management ecosystem.",
     type: "website",
+  },
+  icons: {
+    icon: [
+      { url: `${BASE_PATH}/favicon.svg`, type: "image/svg+xml" },
+      { url: `${BASE_PATH}/awa logo dark blue.svg`, type: "image/svg+xml" },
+    ],
+    shortcut: `${BASE_PATH}/favicon.svg`,
+    apple: `${BASE_PATH}/favicon.svg`,
   },
 };
 
@@ -58,6 +68,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       suppressHydrationWarning
     >
       <head>
+        {/* Favicon & Web App Icons */}
+        <link rel="icon" type="image/svg+xml" href={`${BASE_PATH}/favicon.svg`} />
+        <link rel="alternate icon" href={`${BASE_PATH}/awa logo dark blue.svg`} />
+
         {/* Break network dependency chains: early DNS & TLS handshake preconnects */}
         <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
