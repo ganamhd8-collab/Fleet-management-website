@@ -9,14 +9,17 @@ import Footer from "@/components/sections/Footer";
 import { IconArrow, IconCheck } from "@/components/ui/Icons";
 
 const detailColors: Record<string, string> = {
-  gps: "#102038",            // Row 1: Deep Navy
-  maintenance: "#293C82",    // Row 1: Royal/Indigo Blue
-  fuel: "#287BBD",           // Row 1: Medium Brand Blue
-  driver: "#339CD4",         // Row 1: Bright Sky/Cyan Blue
-  documents: "#102038",      // Row 2: Deep Navy
-  cargo: "#287BBD",          // Row 2: Medium Brand Blue
-  "ai-assistant": "#293C82", // Row 2: Royal/Indigo Blue
-  cameras: "#5A6E82",        // Row 2: Slate/Steel Blue
+  // Row 1: Core Fleet & Telemetry
+  gps: "#0B192C",            // Card 1: Deepest Brand Navy
+  maintenance: "#133154",    // Card 2: Midnight Navy-Blue
+  fuel: "#1B4A72",           // Card 3: Deep Steel-Blue
+  driver: "#236CA6",         // Card 4: FleetIntel Primary Blue
+
+  // Row 2: Specialized Operations & AI
+  documents: "#134454",      // Card 5: Dark Oceanic Teal-Blue
+  cargo: "#172F4A",          // Card 6: Deep Slate-Navy
+  "ai-assistant": "#1A4372", // Card 7: Rich Cobalt-Navy
+  cameras: "#123F4D",        // Card 8: Deep Petrol / Teal-Navy
 };
 
 export default function ServiceDetailView({ serviceId }: { serviceId: string }) {
@@ -103,6 +106,8 @@ export default function ServiceDetailView({ serviceId }: { serviceId: string }) 
                   <img
                     src={imgSrc}
                     alt={service.alt}
+                    loading="lazy"
+                    decoding="async"
                     className="h-full w-full object-cover"
                   />
                   <span className="absolute top-4 end-4 rounded-full bg-navy/75 px-3 py-1 text-[11px] font-medium text-white/85 backdrop-blur-sm">

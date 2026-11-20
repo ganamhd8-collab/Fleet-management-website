@@ -66,6 +66,7 @@ export default function HowItWorks() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const [videoSrc, setVideoSrc] = useState<string>(VIDEO_1080);
+  const [videoLoaded, setVideoLoaded] = useState<boolean>(false);
   const [trackHeightVh, setTrackHeightVh] = useState<number>(480);
   const [settled, setSettled] = useState<boolean>(false);
   const [speedKmh, setSpeedKmh] = useState<number>(0);
@@ -85,7 +86,7 @@ export default function HowItWorks() {
       setVideoSrc(window.innerWidth <= 900 ? VIDEO_720 : VIDEO_1080);
     };
     updateSource();
-    window.addEventListener("resize", updateSource);
+    window.addEventListener("resize", updateSource, { passive: true });
     return () => window.removeEventListener("resize", updateSource);
   }, []);
 
@@ -104,10 +105,17 @@ export default function HowItWorks() {
     let vh = window.innerHeight;
     let stripWidth = strip.scrollWidth;
     let edgePx = Math.round(vh * 0.448);
+    let trackTop = 0;
+    let cardOffsets: number[] = [0, 0, 0];
+    let cardWidths: number[] = [300, 300, 300];
 
     const measureLayout = () => {
+      if (!track || !scene || !strip) return;
       vw = window.innerWidth;
       vh = window.innerHeight;
+      const tr = track.getBoundingClientRect();
+      trackTop = tr.top + window.scrollY;
+
       stripWidth = strip.scrollWidth || 1400;
       bFactor = ((stripWidth + 0.45 * vw) / Math.max(1, vw)) * 1.1;
       setTrackHeightVh((1 + A + bFactor) * 100);
@@ -125,17 +133,42 @@ export default function HowItWorks() {
         edgePx = clamp(rawEdge, Math.round(vh * 0.3), Math.round(vh * 0.65));
         scene.style.setProperty("--edge-px", `${edgePx}px`);
       }
+
+      // Pre-compute static card geometry once on resize to eliminate layout-thrashing during scroll
+      cardOffsets = cardRefs.current.map((card) => (card ? card.offsetLeft : 0));
+      cardWidths = cardRefs.current.map((card) => (card ? card.offsetWidth : 300));
     };
 
     measureLayout();
-    const ro = new ResizeObserver(measureLayout);
+
+    // Debounce resize calculations
+    let resizeTimer: ReturnType<typeof setTimeout> | undefined;
+    const debouncedMeasure = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(measureLayout, 150);
+    };
+
+    const ro = new ResizeObserver(debouncedMeasure);
     ro.observe(scene);
     ro.observe(strip);
-    ro.observe(video);
-    video.addEventListener("loadedmetadata", measureLayout);
+    window.addEventListener("resize", debouncedMeasure, { passive: true });
+    video.addEventListener("loadedmetadata", debouncedMeasure);
+
+    // Lazy load the offscreen How It Works video only when approaching (rootMargin: 400px)
+    const lazyVideoObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVideoLoaded(true);
+          lazyVideoObserver.disconnect();
+        }
+      },
+      { rootMargin: "400px" }
+    );
+    lazyVideoObserver.observe(track);
 
     let rafId = 0;
     let inView = false;
+    let isRunning = false;
     let curTime = 0;
     let lastScrollY = window.scrollY;
     let lastTs = performance.now();
@@ -143,15 +176,11 @@ export default function HowItWorks() {
     let lastSettled = false;
     let lastShownSpeed = -1;
 
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        inView = entry.isIntersecting;
-      },
-      { rootMargin: "40% 0px" }
-    );
-    io.observe(track);
-
     const tick = (now: number) => {
+      if (!inView) {
+        isRunning = false;
+        return;
+      }
       rafId = requestAnimationFrame(tick);
       const dt = Math.max(1, now - lastTs);
       lastTs = now;
@@ -160,10 +189,8 @@ export default function HowItWorks() {
       const dy = Math.abs(curScrollY - lastScrollY);
       lastScrollY = curScrollY;
 
-      if (!inView) return;
-
-      const trackRect = track.getBoundingClientRect();
-      const sectionScrollY = Math.max(0, -trackRect.top);
+      // 0-reflow scroll position calculated from cached trackTop & window.scrollY
+      const sectionScrollY = Math.max(0, curScrollY - trackTop);
 
       // 1. Video scrub progress q (0..1 across A viewports)
       const q = clamp(sectionScrollY / (A * vh), 0, 1);
@@ -207,14 +234,15 @@ export default function HowItWorks() {
         giant.style.transform = `translate3d(${dir === "rtl" ? -gx : gx}px, 0, 0)`;
       }
 
-      // 4. Sky-blue to white gradient sweep on each card as it enters
-      cardRefs.current.forEach((cardEl) => {
+      // 4. Smooth GPU sweep on cards computed mathematically with zero getBoundingClientRect calls
+      cardRefs.current.forEach((cardEl, idx) => {
         if (!cardEl) return;
-        const cr = cardEl.getBoundingClientRect();
+        const cOffset = cardOffsets[idx] || (450 + idx * 320);
+        const cWidth = cardWidths[idx] || 300;
         const enterRatio =
           dir === "rtl"
-            ? clamp((cr.right - vw * 0.05) / (vw * 0.48), 0, 1)
-            : clamp((vw - cr.left) / (vw * 0.48), 0, 1);
+            ? clamp((tx + cOffset + cWidth - vw * 0.05) / (vw * 0.48), 0, 1)
+            : clamp((vw - (tx + cOffset)) / (vw * 0.48), 0, 1);
         const pWhite = Math.round(enterRatio * 100);
         const pBlue = clamp(pWhite + 16, 0, 100);
         const pEnd = clamp(pWhite + 34, 0, 100);
@@ -224,13 +252,43 @@ export default function HowItWorks() {
       });
     };
 
-    rafId = requestAnimationFrame(tick);
+    const startRaf = () => {
+      if (!isRunning && inView) {
+        isRunning = true;
+        rafId = requestAnimationFrame(tick);
+      }
+    };
+
+    const stopRaf = () => {
+      if (isRunning) {
+        cancelAnimationFrame(rafId);
+        isRunning = false;
+      }
+    };
+
+    // Pause requestAnimationFrame loop whenever section is not in viewport
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry.isIntersecting;
+        if (inView) {
+          startRaf();
+        } else {
+          stopRaf();
+        }
+      },
+      { rootMargin: "30% 0px" }
+    );
+    io.observe(track);
+    startRaf();
 
     return () => {
-      cancelAnimationFrame(rafId);
+      stopRaf();
+      clearTimeout(resizeTimer);
       io.disconnect();
       ro.disconnect();
-      video.removeEventListener("loadedmetadata", measureLayout);
+      lazyVideoObserver.disconnect();
+      window.removeEventListener("resize", debouncedMeasure);
+      video.removeEventListener("loadedmetadata", debouncedMeasure);
     };
   }, [dir, lang]);
 
@@ -274,17 +332,30 @@ export default function HowItWorks() {
           {lang === "ar" ? "كيف نعمل" : "HOW IT WORKS"}
         </div>
 
-        {/* Scrubbed Handling Video Layer */}
+        {/* Scrubbed Handling Video Layer (Lazy-Loaded: Poster rendered first, Video attached when near) */}
         <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex h-full items-start justify-center overflow-hidden">
+          {/* Lightweight static poster image rendered first without network video overhead */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={VIDEO_POSTER}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            aria-hidden="true"
+            className="h-auto w-[155vw] max-w-none mt-[calc(36vh-0.448*100%)] md:mt-0 md:w-full md:h-full object-cover object-center"
+          />
+
           <video
             ref={videoRef}
-            src={videoSrc}
+            src={videoLoaded ? videoSrc : undefined}
             poster={VIDEO_POSTER}
             muted
             playsInline
-            preload="metadata"
+            preload={videoLoaded ? "metadata" : "none"}
             aria-hidden="true"
-            className="h-auto w-[155vw] max-w-none mt-[calc(36vh-0.448*100%)] md:mt-0 md:w-full md:h-full object-cover object-center"
+            className={`absolute inset-0 h-auto w-[155vw] max-w-none mt-[calc(36vh-0.448*100%)] md:mt-0 md:w-full md:h-full object-cover object-center transition-opacity duration-500 ${
+              videoLoaded ? "opacity-100" : "opacity-0"
+            }`}
           />
         </div>
 

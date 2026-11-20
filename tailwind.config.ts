@@ -37,6 +37,8 @@ const config: Config = {
         sans: ["var(--font-rubik)", "system-ui", "sans-serif"],
         arabic: ["var(--font-rubik)", "system-ui", "sans-serif"],
         anton: ["var(--font-anton)", "var(--font-rubik)", "sans-serif"],
+        archivo: ["var(--font-archivo)", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       fontSize: {
         display: ["clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem)", { lineHeight: "1.06", letterSpacing: "-0.025em" }],

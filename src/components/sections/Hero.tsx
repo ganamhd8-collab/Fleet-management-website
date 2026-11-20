@@ -17,6 +17,7 @@ export default function Hero() {
 
   const [chapterIdx, setChapterIdx] = useState(0);
   const [exitFade, setExitFade] = useState(0);
+  const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -27,59 +28,101 @@ export default function Hero() {
     let blobUrl: string | null = null;
     let rafId = 0;
     let inView = true;
+    let isRunning = false;
     let lastTime = 0;
     let smoothed = 0;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Fetch video into a local blob so scrubbing never stalls on network range requests
-    fetch(HERO_VIDEO_SRC)
-      .then((res) => (res.ok ? res.blob() : null))
-      .then((blob) => {
-        if (!blob || cancelled) return;
-        blobUrl = URL.createObjectURL(blob);
-        const current = video.currentTime || 0;
-        video.src = blobUrl;
-        video.load();
-        video.addEventListener(
-          "loadedmetadata",
-          () => {
-            if (!cancelled && Number.isFinite(video.duration)) {
-              video.currentTime = clamp(current, 0, Math.max(0, video.duration - 0.05));
-            }
-          },
-          { once: true }
-        );
-      })
-      .catch(() => {
-        // Keep direct /hero.mp4 source if blob fetch fails
-      });
-
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        inView = entry.isIntersecting;
-      },
-      { rootMargin: "25% 0px" }
-    );
-    io.observe(section);
-
-    const computeScrollProgress = () => {
+    // Cache layout metrics to eliminate getBoundingClientRect layout-thrashing on every frame
+    let sectionTop = 0;
+    let scrollable = 1;
+    const updateMetrics = () => {
+      if (!section) return;
       const rect = section.getBoundingClientRect();
-      const scrollable = rect.height - window.innerHeight;
-      return scrollable > 0 ? clamp(-rect.top / scrollable, 0, 1) : 0;
+      sectionTop = rect.top + window.scrollY;
+      scrollable = Math.max(1, rect.height - window.innerHeight);
     };
+    updateMetrics();
+
+    let resizeTimer: ReturnType<typeof setTimeout> | undefined;
+    const onResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(updateMetrics, 150);
+    };
+    window.addEventListener("resize", onResize, { passive: true });
+
+    // Asynchronously load the 7MB hero video in background via requestIdleCallback/after load
+    const startVideoLoad = () => {
+      if (cancelled || blobUrl || video.src) return;
+      fetch(HERO_VIDEO_SRC)
+        .then((res) => (res.ok ? res.blob() : null))
+        .then((blob) => {
+          if (!blob || cancelled) return;
+          blobUrl = URL.createObjectURL(blob);
+          const current = video.currentTime || 0;
+          video.src = blobUrl;
+          video.load();
+          video.addEventListener(
+            "loadedmetadata",
+            () => {
+              if (!cancelled && Number.isFinite(video.duration)) {
+                video.currentTime = clamp(current, 0, Math.max(0, video.duration - 0.05));
+                setVideoReady(true);
+              }
+            },
+            { once: true }
+          );
+        })
+        .catch(() => {
+          if (!cancelled) {
+            video.src = HERO_VIDEO_SRC;
+            video.load();
+            setVideoReady(true);
+          }
+        });
+    };
+
+    const scheduleAsyncLoad = () => {
+      if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+        (window as Window & { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback(
+          () => startVideoLoad(),
+          { timeout: 2500 }
+        );
+      } else {
+        setTimeout(startVideoLoad, 500);
+      }
+    };
+
+    if (document.readyState === "complete") {
+      scheduleAsyncLoad();
+    } else {
+      window.addEventListener("load", scheduleAsyncLoad, { once: true });
+    }
+
+    // Trigger video immediately if user begins scrolling early
+    const onEarlyScroll = () => {
+      if (window.scrollY > 10) {
+        startVideoLoad();
+        window.removeEventListener("scroll", onEarlyScroll);
+      }
+    };
+    window.addEventListener("scroll", onEarlyScroll, { passive: true });
 
     let lastUiChapter = -1;
     let lastExit = -1;
 
     const tick = (now: number) => {
+      if (!inView) {
+        isRunning = false;
+        return;
+      }
       rafId = requestAnimationFrame(tick);
       const dt = lastTime ? Math.min(0.1, (now - lastTime) / 1000) : 1 / 60;
       lastTime = now;
 
-      if (!inView) return;
-
-      const raw = computeScrollProgress();
+      // 0-reflow scroll progress calculated from cached metrics and window.scrollY
+      const raw = clamp((window.scrollY - sectionTop) / scrollable, 0, 1);
       const smoothFactor = reducedMotion ? 1 : 0.16;
       smoothed += (raw - smoothed) * (smoothFactor >= 1 ? 1 : 1 - Math.pow(1 - smoothFactor, dt * 60));
       if (Math.abs(raw - smoothed) < 0.001) smoothed = raw;
@@ -104,12 +147,42 @@ export default function Hero() {
       }
     };
 
-    rafId = requestAnimationFrame(tick);
+    const startRaf = () => {
+      if (!isRunning && inView) {
+        isRunning = true;
+        rafId = requestAnimationFrame(tick);
+      }
+    };
+
+    const stopRaf = () => {
+      if (isRunning) {
+        cancelAnimationFrame(rafId);
+        isRunning = false;
+      }
+    };
+
+    // Pause requestAnimationFrame loop whenever section is not in viewport
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry.isIntersecting;
+        if (inView) {
+          startRaf();
+        } else {
+          stopRaf();
+        }
+      },
+      { rootMargin: "25% 0px" }
+    );
+    io.observe(section);
+    startRaf();
 
     return () => {
       cancelled = true;
-      cancelAnimationFrame(rafId);
+      stopRaf();
+      clearTimeout(resizeTimer);
       io.disconnect();
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("scroll", onEarlyScroll);
       if (blobUrl) URL.revokeObjectURL(blobUrl);
     };
   }, []);
@@ -127,15 +200,33 @@ export default function Hero() {
       <div className="sticky top-20 flex h-[calc(100vh-5rem)] w-full flex-col justify-start overflow-hidden bg-[#0B192C]">
         {/* Layer 1 (z-1): Background Video Shifted Downward with Seamless Alpha Mask */}
         <div className="pointer-events-none absolute inset-0 z-[1] translate-y-[120px] sm:translate-y-[140px] md:translate-y-[155px]">
+          {/* Instant First-Frame Poster Image (explicit LCP element: high-priority, eager, sync decode) */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={images.hero}
+            srcSet={`${images.heroMobile} 640w, ${images.hero} 1080w`}
+            sizes="(max-width: 768px) 100vw, 100vw"
+            alt="FleetIntel connected fleet commercial vehicle"
+            fetchPriority="high"
+            loading="eager"
+            decoding="sync"
+            className="h-full w-full object-cover object-bottom"
+            style={{
+              maskImage: "linear-gradient(to bottom, transparent 0%, black 26%, black 100%)",
+              WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 26%, black 100%)",
+            }}
+          />
+
           <video
             ref={videoRef}
-            src={HERO_VIDEO_SRC}
             poster={images.hero}
             muted
             playsInline
-            preload="metadata"
+            preload="none"
             aria-hidden="true"
-            className="h-full w-full object-cover object-bottom"
+            className={`absolute inset-0 h-full w-full object-cover object-bottom transition-opacity duration-300 ${
+              videoReady ? "opacity-100" : "opacity-0"
+            }`}
             style={{
               maskImage: "linear-gradient(to bottom, transparent 0%, black 26%, black 100%)",
               WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 26%, black 100%)",

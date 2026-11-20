@@ -6,16 +6,19 @@ import { useLanguage } from "@/components/LanguageProvider";
 import Reveal from "@/components/ui/Reveal";
 import { IconArrow } from "@/components/ui/Icons";
 
-/** Strict, harmonious solid brand colors from FleetIntel's official palette (zero gradients) */
+/** Cohesive 8-shade Navy-to-Teal-Blue scale derived directly from FleetIntel's real brand tokens */
 const cardColors: Record<string, string> = {
-  gps: "#102038",            // Row 1, Card 1: Deep Navy
-  maintenance: "#293C82",    // Row 1, Card 2: Royal/Indigo Blue
-  fuel: "#287BBD",           // Row 1, Card 3: Medium Brand Blue
-  driver: "#339CD4",         // Row 1, Card 4: Bright Sky/Cyan Blue
-  documents: "#102038",      // Row 2, Card 5: Deep Navy
-  cargo: "#287BBD",          // Row 2, Card 6: Medium Brand Blue
-  "ai-assistant": "#293C82", // Row 2, Card 7: Royal/Indigo Blue
-  cameras: "#5A6E82",        // Row 2, Card 8: Slate/Steel Blue
+  // Row 1: Core Fleet & Telemetry — Smooth progression from Deepest Navy to Primary Brand Blue
+  gps: "#0B192C",            // Card 1: Deepest Brand Navy (Site Hero & Dark Theme base)
+  maintenance: "#133154",    // Card 2: Midnight Navy-Blue
+  fuel: "#1B4A72",           // Card 3: Deep Steel-Blue
+  driver: "#236CA6",         // Card 4: FleetIntel Primary Blue (Matches "Book a Demo" button)
+
+  // Row 2: Specialized Operations & AI — Complementary oceanic teal & deep cobalt-navy progression
+  documents: "#134454",      // Card 5: Dark Oceanic Teal-Blue (Echoes logo teal)
+  cargo: "#172F4A",          // Card 6: Deep Slate-Navy
+  "ai-assistant": "#1A4372", // Card 7: Rich Cobalt-Navy
+  cameras: "#123F4D",        // Card 8: Deep Petrol / Teal-Navy
 };
 
 export default function Solutions() {
@@ -45,7 +48,7 @@ export default function Solutions() {
               <Reveal key={item.id} delay={idx * 75}>
                 <article
                   style={{ backgroundColor: bg }}
-                  className="group flex h-full min-h-[300px] flex-col justify-between rounded-[24px] p-7 text-white shadow-panel transition duration-300 ease-out hover:-translate-y-2 hover:shadow-lift"
+                  className="group flex h-full min-h-[300px] flex-col justify-between rounded-[24px] p-7 text-white shadow-panel transition duration-300 ease-out hover:-translate-y-2 hover:shadow-lift will-change-transform"
                 >
                   <div className="space-y-3.5">
                     <h3 className="text-xl font-bold leading-snug text-white">
