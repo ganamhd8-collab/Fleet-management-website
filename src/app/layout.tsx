@@ -32,7 +32,9 @@ const archivo = Archivo({
   display: "swap",
 });
 
-const BASE_PATH = process.env.NODE_ENV === "production" ? "/Fleet-management-website" : "";
+const BASE_PATH =
+  process.env.NEXT_PUBLIC_BASE_PATH ||
+  (process.env.NEXT_PUBLIC_GITHUB_PAGES === "true" ? "/Fleet-management-website" : "");
 
 export const metadata: Metadata = {
   title: "AWA Fleet Guards — One Integrated Ecosystem. Complete Fleet Intelligence.",
@@ -46,7 +48,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: `${BASE_PATH}/favicon.svg`, type: "image/svg+xml" },
-      { url: `${BASE_PATH}/awa logo dark blue.svg`, type: "image/svg+xml" },
+      { url: `${BASE_PATH}/logo-dark.svg`, type: "image/svg+xml" },
     ],
     shortcut: `${BASE_PATH}/favicon.svg`,
     apple: `${BASE_PATH}/favicon.svg`,
@@ -70,7 +72,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         {/* Favicon & Web App Icons */}
         <link rel="icon" type="image/svg+xml" href={`${BASE_PATH}/favicon.svg`} />
-        <link rel="alternate icon" href={`${BASE_PATH}/awa logo dark blue.svg`} />
+        <link rel="alternate icon" href={`${BASE_PATH}/logo-dark.svg`} />
 
         {/* Break network dependency chains: early DNS & TLS handshake preconnects */}
         <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="anonymous" />

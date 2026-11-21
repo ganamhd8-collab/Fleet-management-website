@@ -7,7 +7,9 @@ import LoginLink from "@/components/ui/LoginLink";
 import { IconArrow } from "@/components/ui/Icons";
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
-const BASE_PATH = process.env.NODE_ENV === "production" ? "/Fleet-management-website" : "";
+const BASE_PATH =
+  process.env.NEXT_PUBLIC_BASE_PATH ||
+  (process.env.NEXT_PUBLIC_GITHUB_PAGES === "true" ? "/Fleet-management-website" : "");
 const HERO_VIDEO_SRC = `${BASE_PATH}/hero.mp4`;
 
 export default function Hero() {
