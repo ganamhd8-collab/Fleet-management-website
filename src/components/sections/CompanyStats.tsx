@@ -131,10 +131,10 @@ export default function CompanyStats() {
                 }
               >
                 <div className="flex flex-col space-y-4">
-                  {/* Oversized Turquoise Dynamic Count-Up Number */}
+                  {/* Oversized Corporate Blue Dynamic Count-Up Number */}
                   <div
                     aria-label={`${stat.value}${stat.suffix} ${stat.label}`}
-                    className="text-[clamp(4.75rem,8.5vw,7.25rem)] font-extrabold tracking-[-0.03em] leading-none text-[#55C5C7]"
+                    className="text-[clamp(4.75rem,8.5vw,7.25rem)] font-extrabold tracking-[-0.03em] leading-none text-[#287FBA]"
                   >
                     <DynamicCountUp
                       target={stat.value}
@@ -149,7 +149,7 @@ export default function CompanyStats() {
                     <div className="flex items-center gap-3.5">
                       <span className="relative h-[2.5px] w-10 overflow-hidden rounded-full bg-[#14213F]/10">
                         <span
-                          className="absolute inset-0 origin-left rtl:origin-right rounded-full bg-[#55C5C7] transition-transform duration-[1900ms] ease-out"
+                          className="absolute inset-0 origin-left rtl:origin-right rounded-full bg-[#287FBA] transition-transform duration-[1900ms] ease-out"
                           style={{
                             transform: active ? "scaleX(1)" : "scaleX(0)",
                             transitionDelay: `${120 + idx * 140}ms`,
