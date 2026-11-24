@@ -1,193 +1,252 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLanguage } from "@/components/LanguageProvider";
-import { images } from "@/content/images";
 import LoginLink from "@/components/ui/LoginLink";
 import { IconArrow } from "@/components/ui/Icons";
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
+
 const BASE_PATH =
   process.env.NEXT_PUBLIC_BASE_PATH ||
   (process.env.NEXT_PUBLIC_GITHUB_PAGES === "true" ? "/Fleet-management-website" : "");
-const HERO_VIDEO_SRC = `${BASE_PATH}/hero.mp4`;
+
+const TOTAL_FRAMES = 370;
+const MAX_CACHE_SIZE = 90; // Bounded memory footprint (~7 MB RAM)
+
+const getFrameSrc = (index: number) => {
+  const padded = String(index).padStart(4, "0");
+  return `${BASE_PATH}/assets/hero-sequence-v2/frame_${padded}.webp`;
+};
 
 export default function Hero() {
   const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const [chapterIdx, setChapterIdx] = useState(0);
   const [exitFade, setExitFade] = useState(0);
-  const [videoReady, setVideoReady] = useState(false);
+  const [canvasReady, setCanvasReady] = useState(false);
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    const video = videoRef.current;
-    if (!section || !video) return;
+  // Cached frame images
+  const imagesCache = useRef<Map<number, HTMLImageElement>>(new Map());
+  const lastDrawnFrame = useRef<number>(1);
+  const activeFrameRef = useRef<number>(1);
 
-    let cancelled = false;
-    let blobUrl: string | null = null;
-    let rafId = 0;
-    let inView = true;
-    let isRunning = false;
-    let lastTime = 0;
-    let smoothed = 0;
+  // Draw frame with pristine high-DPI aspect ratio scaling
+  const drawFrame = useCallback((img: HTMLImageElement) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const width = canvas.width;
+    const height = canvas.height;
 
-    // Cache layout metrics to eliminate getBoundingClientRect layout-thrashing on every frame
-    let sectionTop = 0;
-    let scrollable = 1;
-    const updateMetrics = () => {
-      if (!section) return;
-      const rect = section.getBoundingClientRect();
-      sectionTop = rect.top + window.scrollY;
-      scrollable = Math.max(1, rect.height - window.innerHeight);
-    };
-    updateMetrics();
+    ctx.clearRect(0, 0, width, height);
 
-    let resizeTimer: ReturnType<typeof setTimeout> | undefined;
-    const onResize = () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(updateMetrics, 150);
-    };
-    window.addEventListener("resize", onResize, { passive: true });
+    const imgRatio = img.width / img.height;
+    const canvasRatio = width / height;
 
-    // Asynchronously load the 7MB hero video in background via requestIdleCallback/after load
-    const startVideoLoad = () => {
-      if (cancelled || blobUrl || video.src) return;
-      fetch(HERO_VIDEO_SRC)
-        .then((res) => (res.ok ? res.blob() : null))
-        .then((blob) => {
-          if (!blob || cancelled) return;
-          blobUrl = URL.createObjectURL(blob);
-          const current = video.currentTime || 0;
-          video.src = blobUrl;
-          video.load();
-          video.addEventListener(
-            "loadedmetadata",
-            () => {
-              if (!cancelled && Number.isFinite(video.duration)) {
-                video.currentTime = clamp(current, 0, Math.max(0, video.duration - 0.05));
-                setVideoReady(true);
-              }
-            },
-            { once: true }
-          );
-        })
-        .catch(() => {
-          if (!cancelled) {
-            video.src = HERO_VIDEO_SRC;
-            video.load();
-            setVideoReady(true);
-          }
-        });
-    };
+    let drawW = width;
+    let drawH = height;
+    let offsetX = 0;
+    let offsetY = 0;
 
-    const scheduleAsyncLoad = () => {
-      if (typeof window !== "undefined" && "requestIdleCallback" in window) {
-        (window as Window & { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback(
-          () => startVideoLoad(),
-          { timeout: 2500 }
-        );
-      } else {
-        setTimeout(startVideoLoad, 500);
-      }
-    };
-
-    if (document.readyState === "complete") {
-      scheduleAsyncLoad();
+    // Cover mode: full-bleed cinematic immersion
+    if (canvasRatio > imgRatio) {
+      drawW = width;
+      drawH = width / imgRatio;
+      offsetY = (height - drawH) / 2;
     } else {
-      window.addEventListener("load", scheduleAsyncLoad, { once: true });
+      drawH = height;
+      drawW = height * imgRatio;
+      offsetX = (width - drawW) / 2;
+      offsetY = (height - drawH) / 2;
     }
 
-    // Trigger video immediately if user begins scrolling early
-    const onEarlyScroll = () => {
-      if (window.scrollY > 10) {
-        startVideoLoad();
-        window.removeEventListener("scroll", onEarlyScroll);
+    ctx.drawImage(img, 0, 0, img.width, img.height, offsetX, offsetY, drawW, drawH);
+  }, []);
+
+  // Preload a specific frame index into cache
+  const preloadFrame = useCallback((idx: number) => {
+    if (idx < 1 || idx > TOTAL_FRAMES || imagesCache.current.has(idx)) return;
+    const img = new Image();
+    img.src = getFrameSrc(idx);
+    img.onload = () => {
+      imagesCache.current.set(idx, img);
+      if (activeFrameRef.current === idx) {
+        drawFrame(img);
+        setCanvasReady(true);
       }
     };
-    window.addEventListener("scroll", onEarlyScroll, { passive: true });
+    imagesCache.current.set(idx, img);
+  }, [drawFrame]);
 
-    let lastUiChapter = -1;
-    let lastExit = -1;
-
-    const tick = (now: number) => {
-      if (!inView) {
-        isRunning = false;
-        return;
+  // Prune cache to maintain low memory usage
+  const pruneCache = useCallback((currentCenter: number) => {
+    if (imagesCache.current.size <= MAX_CACHE_SIZE) return;
+    const entries = Array.from(imagesCache.current.keys());
+    // Sort by distance from current position descending
+    entries.sort((a, b) => Math.abs(b - currentCenter) - Math.abs(a - currentCenter));
+    const toRemove = entries.slice(0, entries.length - MAX_CACHE_SIZE);
+    toRemove.forEach((key) => {
+      // Never delete frame 1 (poster)
+      if (key !== 1) {
+        imagesCache.current.delete(key);
       }
-      rafId = requestAnimationFrame(tick);
-      const dt = lastTime ? Math.min(0.1, (now - lastTime) / 1000) : 1 / 60;
-      lastTime = now;
+    });
+  }, []);
 
-      // 0-reflow scroll progress calculated from cached metrics and window.scrollY
-      const raw = clamp((window.scrollY - sectionTop) / scrollable, 0, 1);
-      const smoothFactor = reducedMotion ? 1 : 0.16;
-      smoothed += (raw - smoothed) * (smoothFactor >= 1 ? 1 : 1 - Math.pow(1 - smoothFactor, dt * 60));
-      if (Math.abs(raw - smoothed) < 0.001) smoothed = raw;
+  // Render a specific frame index (1..TOTAL_FRAMES)
+  const renderFrame = useCallback(
+    (frameIndex: number) => {
+      const clamped = clamp(frameIndex, 1, TOTAL_FRAMES);
+      activeFrameRef.current = clamped;
 
-      if (video.readyState >= 1 && Number.isFinite(video.duration) && video.duration > 0) {
-        const targetTime = clamp(smoothed * (video.duration - 0.04), 0, Math.max(0, video.duration - 0.04));
-        if (!video.seeking && Math.abs(video.currentTime - targetTime) > 0.035) {
-          video.currentTime = targetTime;
+      const cached = imagesCache.current.get(clamped);
+
+      if (cached && cached.complete && cached.naturalWidth > 0) {
+        lastDrawnFrame.current = clamped;
+        drawFrame(cached);
+        setCanvasReady(true);
+      } else {
+        // Fallback to last drawn frame to guarantee 0 flickering
+        const fallback = imagesCache.current.get(lastDrawnFrame.current);
+        if (fallback && fallback.complete && fallback.naturalWidth > 0) {
+          drawFrame(fallback);
         }
+        preloadFrame(clamped);
       }
 
-      const nextChapter = Math.min(4, Math.floor(smoothed * 5));
-      if (nextChapter !== lastUiChapter) {
-        lastUiChapter = nextChapter;
-        setChapterIdx(nextChapter);
+      // Preload immediate neighbors for smooth scrub (current ± 8 frames)
+      for (let offset = 1; offset <= 8; offset++) {
+        preloadFrame(clamped + offset);
+        preloadFrame(clamped - offset);
       }
 
-      const nextExit = smoothed > 0.88 ? Math.round(clamp((smoothed - 0.88) / 0.12, 0, 1) * 20) / 20 : 0;
-      if (nextExit !== lastExit) {
-        lastExit = nextExit;
-        setExitFade(nextExit);
+      // Memory management
+      if (imagesCache.current.size > MAX_CACHE_SIZE + 20) {
+        pruneCache(clamped);
+      }
+    },
+    [drawFrame, preloadFrame, pruneCache]
+  );
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const canvas = canvasRef.current;
+    const section = sectionRef.current;
+    if (!canvas || !section) return;
+
+    // High-DPI canvas backing sizing
+    const resizeCanvas = () => {
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(rect.width * dpr);
+      canvas.height = Math.round(rect.height * dpr);
+
+      // Re-draw current frame
+      const current = imagesCache.current.get(lastDrawnFrame.current);
+      if (current && current.complete && current.naturalWidth > 0) {
+        drawFrame(current);
       }
     };
 
-    const startRaf = () => {
-      if (!isRunning && inView) {
-        isRunning = true;
-        rafId = requestAnimationFrame(tick);
-      }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas, { passive: true });
+
+    // Step 1: Preload poster frame (frame 1) immediately
+    const posterImg = new Image();
+    posterImg.src = getFrameSrc(1);
+    posterImg.onload = () => {
+      imagesCache.current.set(1, posterImg);
+      lastDrawnFrame.current = 1;
+      drawFrame(posterImg);
+      setCanvasReady(true);
     };
 
-    const stopRaf = () => {
-      if (isRunning) {
-        cancelAnimationFrame(rafId);
-        isRunning = false;
-      }
-    };
+    // Step 2: Preload initial buffer (frames 2 to 25)
+    for (let i = 2; i <= Math.min(25, TOTAL_FRAMES); i++) {
+      preloadFrame(i);
+    }
 
-    // Pause requestAnimationFrame loop whenever section is not in viewport
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        inView = entry.isIntersecting;
-        if (inView) {
-          startRaf();
+    // Step 3: Progressive idle preloader in background
+    let preloadCancelled = false;
+    let nextToPreload = 26;
+
+    const preloadBatch = () => {
+      if (preloadCancelled || nextToPreload > TOTAL_FRAMES) return;
+
+      const batchSize = 12;
+      const target = Math.min(TOTAL_FRAMES, nextToPreload + batchSize);
+
+      for (let i = nextToPreload; i <= target; i++) {
+        preloadFrame(i);
+      }
+
+      nextToPreload = target + 1;
+
+      if (nextToPreload <= TOTAL_FRAMES) {
+        if ("requestIdleCallback" in window) {
+          (window as Window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(
+            () => preloadBatch()
+          );
         } else {
-          stopRaf();
+          setTimeout(preloadBatch, 40);
         }
-      },
-      { rootMargin: "25% 0px" }
-    );
-    io.observe(section);
-    startRaf();
+      }
+    };
+
+    if ("requestIdleCallback" in window) {
+      (window as Window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(
+        () => preloadBatch()
+      );
+    } else {
+      setTimeout(preloadBatch, 200);
+    }
+
+    // Step 4: ScrollTrigger connection for scroll-driven progression
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let trigger: ScrollTrigger | null = null;
+
+    if (!prefersReducedMotion) {
+      trigger = ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.1, // Smooth dampening without lag
+        anticipatePin: 1,
+        onUpdate: (self) => {
+          const progress = self.progress; // 0 to 1
+
+          // Map normalized progress to frame index (1 to TOTAL_FRAMES)
+          const targetFrame = clamp(Math.round(1 + progress * (TOTAL_FRAMES - 1)), 1, TOTAL_FRAMES);
+          renderFrame(targetFrame);
+
+          // Update chapter index (0..4) based on progress
+          const nextChapter = Math.min(4, Math.floor(progress * 5));
+          setChapterIdx(nextChapter);
+
+          // Exit fade as section meets next section
+          const nextExit = progress > 0.88 ? Math.round(((progress - 0.88) / 0.12) * 20) / 20 : 0;
+          setExitFade(nextExit);
+        },
+      });
+    }
 
     return () => {
-      cancelled = true;
-      stopRaf();
-      clearTimeout(resizeTimer);
-      io.disconnect();
-      window.removeEventListener("resize", onResize);
-      window.removeEventListener("scroll", onEarlyScroll);
-      if (blobUrl) URL.revokeObjectURL(blobUrl);
+      preloadCancelled = true;
+      window.removeEventListener("resize", resizeCanvas);
+      if (trigger) trigger.kill();
     };
-  }, []);
+  }, [drawFrame, preloadFrame, renderFrame]);
 
   const chapter = t.hero.chapters[chapterIdx] ?? t.hero.chapters[0];
 
@@ -200,47 +259,35 @@ export default function Hero() {
     >
       {/* Pinned Viewport Offset Cleanly Below the 80px Navbar */}
       <div className="sticky top-20 flex h-[calc(100vh-5rem)] w-full flex-col justify-start overflow-hidden bg-[#0B192C]">
-        {/* Layer 1 (z-1): Background Video Shifted Downward with Seamless Alpha Mask */}
-        <div className="pointer-events-none absolute inset-0 z-[1] translate-y-[120px] sm:translate-y-[140px] md:translate-y-[155px]">
-          {/* Instant First-Frame Poster Image (explicit LCP element: high-priority, eager, sync decode) */}
+        {/* Layer 1 (z-1): High-DPI Canvas Rendering the 370-Frame WebP Sequence */}
+        <div className="pointer-events-none absolute inset-0 z-[1]">
+          {/* Explicit LCP Poster Frame (instant render before canvas init) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={images.hero}
-            srcSet={`${images.heroMobile} 640w, ${images.hero} 1080w`}
-            sizes="(max-width: 768px) 100vw, 100vw"
+            src={getFrameSrc(1)}
             alt="AWA Fleet Guards connected fleet commercial vehicle"
             fetchPriority="high"
             loading="eager"
             decoding="sync"
-            className="h-full w-full object-cover object-bottom"
-            style={{
-              maskImage: "linear-gradient(to bottom, transparent 0%, black 26%, black 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 26%, black 100%)",
-            }}
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${
+              canvasReady ? "opacity-0" : "opacity-100"
+            }`}
           />
 
-          <video
-            ref={videoRef}
-            poster={images.hero}
-            muted
-            playsInline
-            preload="none"
-            aria-hidden="true"
-            className={`absolute inset-0 h-full w-full object-cover object-bottom transition-opacity duration-300 ${
-              videoReady ? "opacity-100" : "opacity-0"
+          {/* Full-Bleed Canvas */}
+          <canvas
+            ref={canvasRef}
+            className={`h-full w-full block object-cover transition-opacity duration-300 ${
+              canvasReady ? "opacity-100" : "opacity-0"
             }`}
-            style={{
-              maskImage: "linear-gradient(to bottom, transparent 0%, black 26%, black 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 26%, black 100%)",
-            }}
+            style={{ display: "block" }}
           />
         </div>
 
-        {/* Layer 2 (z-2): Uniform Full-Coverage Translucent Dark Navy Overlay */}
+        {/* Layer 2 (z-2): Uniform Full-Coverage Translucent Dark Navy Contrast Overlay */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-[2] h-full w-full"
-          style={{ backgroundColor: "rgba(11, 25, 44, 0.45)" }}
+          className="pointer-events-none absolute inset-0 z-[2] h-full w-full bg-[#0B192C]/50 backdrop-blur-[0.5px]"
         />
 
         {/* Subtle Bottom Transition Fade as Hero Meets Next Section */}
@@ -248,18 +295,20 @@ export default function Hero() {
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-32"
           style={{
-            background: `linear-gradient(180deg, transparent 0%, rgba(11, 25, 44, 0.65) 55%, rgba(245, 247, 250, ${(exitFade * 0.95).toFixed(2)}) 100%)`,
+            background: `linear-gradient(180deg, transparent 0%, rgba(11, 25, 44, 0.65) 55%, rgba(255, 255, 255, ${(exitFade * 0.95).toFixed(2)}) 100%)`,
           }}
         />
 
         {/* Layer 3 (z-3): Free-Floating Centered Cinematic Content */}
-        <div className="container relative z-[3] flex flex-col items-center bg-transparent border-none shadow-none pt-5 sm:pt-7 md:pt-9 text-center">
+        <div className="container relative z-[3] flex flex-col items-center bg-transparent border-none shadow-none pt-6 sm:pt-8 md:pt-10 text-center">
           <div key={chapter.id} className="fade-in flex flex-col items-center space-y-4 sm:space-y-5">
-            <h1 className="max-w-[min(92vw,1240px)] text-[clamp(1.75rem,3.1vw,3.15rem)] font-bold leading-[1.2] tracking-tight text-white lg:whitespace-nowrap">
+            {/* Restored Main Headline */}
+            <h1 className="max-w-[min(92vw,1240px)] text-[clamp(1.75rem,3.1vw,3.15rem)] font-bold leading-[1.2] tracking-tight text-white lg:whitespace-nowrap drop-shadow-md">
               {chapter.headline}
             </h1>
 
-            <p className="max-w-[760px] text-[15px] leading-relaxed text-white/85 sm:text-lg">
+            {/* Restored Description */}
+            <p className="max-w-[760px] text-[15px] leading-relaxed text-white/90 sm:text-lg drop-shadow-sm">
               {chapter.description}
             </p>
 
@@ -275,7 +324,7 @@ export default function Hero() {
                     {t.hero.secondary}
                   </a>
                 </div>
-                <p className="text-xs sm:text-sm text-white/75">
+                <p className="text-xs sm:text-sm text-white/80">
                   {t.hero.clientPrefix}{" "}
                   <LoginLink className="font-semibold text-turquoise underline underline-offset-4 hover:text-white transition-colors">
                     {t.hero.clientLink}

@@ -7,6 +7,7 @@ const en = {
   nav: {
     links: [
       { id: "home", label: "Home" },
+      { id: "about", label: "About Us" },
       { id: "solutions", label: "Solutions" },
       { id: "how-it-works", label: "How It Works" },
       { id: "industries", label: "Industries" },
@@ -18,7 +19,7 @@ const en = {
     switchLabel: "Switch to Arabic",
     menu: "Open menu",
     close: "Close menu",
-    loginPending: "Client dashboard link coming soon",
+    loginPending: "User dashboard link coming soon",
   },
   hero: {
     headline: "Your Entire Fleet in One Intelligent System",
@@ -26,7 +27,7 @@ const en = {
       "Connect your vehicles, drivers, and operations through one integrated fleet management ecosystem. Gain better visibility, smarter insights, and greater control over every part of your fleet.",
     primary: "Book a Demo",
     secondary: "Explore Our Solutions",
-    clientPrefix: "Already a client?",
+    clientPrefix: "Are you a user?",
     clientLink: "Login to your Dashboard",
     scrollHint: "Scroll to explore",
     chapters: [
@@ -90,6 +91,57 @@ const en = {
       { id: "operations", title: "Fleet Operations", text: "Day-to-day management of vehicles, drivers, and documents." },
     ],
     core: "One ecosystem",
+  },
+  trustedClients: {
+    eyebrow: "OUR CLIENTS",
+    headline: "Trusted by Businesses That Move",
+    subtitle: "Building stronger operations through smarter fleet management.",
+  },
+  companyStats: {
+    eyebrow: "AWA FLEETGUARDS IN NUMBERS",
+    headline: "Experience That Moves Businesses Forward.",
+    items: [
+      {
+        id: "clients",
+        value: 95,
+        suffix: "+",
+        label: "Clients Served",
+        description: "Partnering with leading organizations across logistics, construction, manufacturing, and education.",
+      },
+      {
+        id: "experience",
+        value: 17,
+        suffix: "+",
+        label: "Years of Experience",
+        description: "Proven operational expertise delivering reliable fleet tracking and connected vehicle intelligence.",
+      },
+    ],
+  },
+  homeAbout: {
+    eyebrow: "ABOUT AWA FLEETGUARDS",
+    headline: "Driving Smarter Fleet Operations.",
+    description:
+      "We connect vehicles, drivers, and technology to give businesses greater visibility, control, and operational efficiency.",
+    highlights: [
+      {
+        id: "connected",
+        title: "Connected Technology",
+        text: "Hardware and software working together.",
+      },
+      {
+        id: "visibility",
+        title: "Real-Time Visibility",
+        text: "Better insights into fleet operations.",
+      },
+      {
+        id: "operations",
+        title: "Smarter Operations",
+        text: "Improved efficiency and control.",
+      },
+    ],
+    cta: "Discover Our Story",
+    badge: "Connected Fleet Intelligence",
+    imageAlt: "AWA FleetGuards Scania commercial fleet truck",
   },
   solutions: {
     headline: "Everything Your Fleet Needs. Connected.",
@@ -270,11 +322,11 @@ const en = {
     headline: "Built for Businesses That Move.",
     description: "Flexible fleet management solutions designed to support different industries and operational needs.",
     items: [
-      { id: "logistics", title: "Transportation & Logistics", alt: "Freight trucks at a logistics yard" },
-      { id: "distribution", title: "Distribution & FMCG", alt: "Delivery van in the city" },
-      { id: "construction", title: "Construction & Contracting", alt: "Heavy construction machinery on site" },
+      { id: "logistics", title: "Transportation & Logistics", alt: "Commercial freight transport truck on highway" },
+      { id: "distribution", title: "Distribution & FMCG", alt: "FMCG distribution warehouse and logistics center" },
+      { id: "construction", title: "Construction & Contracting", alt: "Commercial construction and contracting jobsite" },
       { id: "rental", title: "Car Rental & Leasing", alt: "Car driving on an open road" },
-      { id: "corporate", title: "Corporate Fleets", alt: "Company vehicles on the road" },
+      { id: "corporate", title: "Corporate Fleets", alt: "Corporate fleet passenger coach on the road" },
     ],
   },
   why: {
@@ -352,20 +404,125 @@ const en = {
       contact: "Contact",
     },
     company: [
-      { label: "About Us", href: "#about" },
-      { label: "Our Solutions", href: "#solutions" },
-      { label: "Industries", href: "#industries" },
-      { label: "Contact Us", href: "#contact" },
+      { label: "About Us", href: "/about" },
+      { label: "Our Solutions", href: "/#solutions" },
+      { label: "Industries", href: "/#industries" },
+      { label: "Contact Us", href: "/#contact" },
     ],
     solutions: ["GPS Tracking", "Fuel Monitoring", "Predictive Maintenance", "Driver Behavior", "Insurance & Licensing"],
     resources: ["FAQs", "Insights", "Support"],
-    start: { demo: "Book a Demo", login: "Client Login" },
+    start: { demo: "Book a Demo", login: "User Login" },
     email: "Email",
     phone: "Phone",
     privacy: "Privacy Policy",
     terms: "Terms & Conditions",
     rights: "All rights reserved.",
     soon: "Coming soon",
+  },
+  aboutPage: {
+    hero: {
+      eyebrow: "Who We Are",
+      headline: "Driving Smarter Fleet Operations.",
+      description:
+        "At AWA Fleet Guards, we bring vehicles, drivers, and fleet operations together through intelligent technology, connected systems, and actionable insights.",
+      primary: "Book a Demo",
+      secondary: "Explore Our Solutions",
+    },
+    intro: {
+      eyebrow: "About AWA Fleet Guards",
+      headline: "More Than Fleet Management. A Smarter Way Forward.",
+      content:
+        "AWA Fleet Guards is focused on transforming the way businesses manage their fleets. By bringing together connected hardware, intelligent software, and centralized fleet management tools, we help businesses gain greater visibility, improve operational efficiency, and make informed decisions.",
+      pillars: [
+        { id: "hardware", title: "Connected Hardware", text: "Dedicated vehicle devices and telemetry sensors." },
+        { id: "software", title: "Intelligent Software", text: "Unified platform turning fleet data into clarity." },
+        { id: "operations", title: "Centralized Tools", text: "Complete operational visibility and fleet control." },
+      ],
+      visualTag: "Connected Fleet Ecosystem",
+      visualStatus: "Integrated Hardware & Software Platform",
+      visualAlt: "Connected fleet vehicles and operational intelligence",
+    },
+    missionVision: {
+      eyebrow: "Purpose & Direction",
+      headline: "Guided by Clarity. Built for Control.",
+      mission: {
+        tag: "Our Purpose",
+        title: "Our Mission",
+        text: "To empower businesses with intelligent fleet management solutions that improve visibility, enhance operational efficiency, and support smarter decision-making.",
+      },
+      vision: {
+        tag: "Future Horizon",
+        title: "Our Vision",
+        text: "To contribute to a smarter, more connected transportation ecosystem where technology helps businesses manage their fleets with greater confidence and control.",
+      },
+    },
+    values: {
+      eyebrow: "What Drives Us",
+      headline: "Our Core Values",
+      description:
+        "The foundational principles behind every device we deploy and every platform capability we engineer.",
+      items: [
+        {
+          id: "innovation",
+          title: "Innovation",
+          text: "Embracing technology to deliver smarter fleet management solutions.",
+        },
+        {
+          id: "reliability",
+          title: "Reliability",
+          text: "Building dependable systems that support daily fleet operations.",
+        },
+        {
+          id: "transparency",
+          title: "Transparency",
+          text: "Providing businesses with clearer visibility into their fleet activities.",
+        },
+        {
+          id: "efficiency",
+          title: "Efficiency",
+          text: "Helping businesses optimize resources and improve operational performance.",
+        },
+      ],
+    },
+    ecosystem: {
+      eyebrow: "Our Integrated Ecosystem",
+      headline: "Everything Your Fleet Needs. Connected.",
+      description:
+        "From real-time vehicle tracking to intelligent monitoring and predictive insights, our integrated ecosystem brings essential fleet management capabilities together in one centralized platform.",
+      readMore: "Read More",
+    },
+    why: {
+      eyebrow: "Why Choose AWA Fleet Guards",
+      headline: "One Partner. Every Part of Your Fleet.",
+      description:
+        "We bring the technology, tools, and operational capabilities your business needs to manage its fleet as one connected system.",
+      items: [
+        {
+          title: "Integrated Ecosystem",
+          text: "Hardware and software working together in one solution.",
+        },
+        {
+          title: "Purpose-Built Technology",
+          text: "Dedicated devices and sensors designed for fleet operations.",
+        },
+        {
+          title: "Centralized Management",
+          text: "Essential fleet information accessible through one platform.",
+        },
+        {
+          title: "Scalable Solutions",
+          text: "Technology designed to support evolving business needs.",
+        },
+      ],
+    },
+    cta: {
+      eyebrow: "Get Started",
+      headline: "Ready to Take Your Fleet Further?",
+      description:
+        "Discover how AWA Fleet Guards can help your business connect its fleet, optimize operations, and make smarter decisions.",
+      primary: "Book a Demo",
+      secondary: "Explore Our Solutions",
+    },
   },
 };
 
@@ -378,6 +535,7 @@ const ar: Dictionary = {
   nav: {
     links: [
       { id: "home", label: "الرئيسية" },
+      { id: "about", label: "من نحن" },
       { id: "solutions", label: "حلولنا" },
       { id: "how-it-works", label: "كيف نعمل" },
       { id: "industries", label: "القطاعات" },
@@ -397,7 +555,7 @@ const ar: Dictionary = {
       "اربط مركباتك وسائقيك وعملياتك التشغيلية من خلال منظومة متكاملة لإدارة الأساطيل. احصل على رؤية أوضح، وتحليلات أذكى، وتحكم أكبر في كل تفاصيل أسطولك.",
     primary: "احجز عرضًا تجريبيًا",
     secondary: "اكتشف حلولنا",
-    clientPrefix: "عميل حالي؟",
+    clientPrefix: "هل أنت مستخدم؟",
     clientLink: "ادخل إلى لوحة التحكم",
     scrollHint: "مرر لاستكشاف التجربة",
     chapters: [
@@ -461,6 +619,57 @@ const ar: Dictionary = {
       { id: "operations", title: "إدارة العمليات", text: "متابعة يومية للمركبات والسائقين والمستندات." },
     ],
     core: "منظومة واحدة",
+  },
+  trustedClients: {
+    eyebrow: "عملاؤنا",
+    headline: "ثقة الشركات التي تعتمد على الحركة",
+    subtitle: "نبني عمليات تشغيلية أقوى من خلال إدارة أساطيل أكثر ذكاءً.",
+  },
+  companyStats: {
+    eyebrow: "أوا فليت جاردز في أرقام",
+    headline: "خبرة تدفع أعمالك نحو الأمام.",
+    items: [
+      {
+        id: "clients",
+        value: 95,
+        suffix: "+",
+        label: "عميل نعتز بخدمته",
+        description: "شراكات راسخة مع كبرى المؤسسات في قطاعات النقل، الصناعة، المقاولات، والتعليم.",
+      },
+      {
+        id: "experience",
+        value: 17,
+        suffix: "+",
+        label: "عامًا من الخبرة",
+        description: "سجل ممتد من الخبرة العملية في تكنولوجيا تتبع المركبات وحلول إدارة الأساطيل المتكاملة.",
+      },
+    ],
+  },
+  homeAbout: {
+    eyebrow: "عن AWA FLEETGUARDS",
+    headline: "نقود عمليات الأساطيل نحو مستقبل أكثر ذكاءً.",
+    description:
+      "نربط المركبات والسائقين والتكنولوجيا لنمنح الشركات رؤية أوضح، وتحكمًا أكبر، وكفاءة تشغيلية أعلى.",
+    highlights: [
+      {
+        id: "connected",
+        title: "تكنولوجيا متصلة",
+        text: "الأجهزة والبرمجيات تعمل بتناغم متكامل.",
+      },
+      {
+        id: "visibility",
+        title: "رؤية فورية",
+        text: "رؤى وبيانات دقيقة حول عمليات الأسطول.",
+      },
+      {
+        id: "operations",
+        title: "عمليات أذكى",
+        text: "كفاءة أعلى وتحكم أدق في الأداء.",
+      },
+    ],
+    cta: "اكتشف قصتنا",
+    badge: "منظومة أساطيل ذكية ومتصلة",
+    imageAlt: "شاحنة أسطول AWA FleetGuards",
   },
   solutions: {
     headline: "كل ما يحتاجه أسطولك.. في منظومة مترابطة.",
@@ -638,11 +847,11 @@ const ar: Dictionary = {
     headline: "حلول مصممة للشركات التي تعتمد على الحركة.",
     description: "حلول مرنة لإدارة الأساطيل، تتكيف مع طبيعة القطاعات المختلفة واحتياجاتها التشغيلية.",
     items: [
-      { id: "logistics", title: "النقل والخدمات اللوجستية", alt: "شاحنات نقل في ساحة لوجستية" },
-      { id: "distribution", title: "التوزيع والسلع الاستهلاكية", alt: "مركبة توزيع في المدينة" },
-      { id: "construction", title: "المقاولات والإنشاءات", alt: "معدات إنشاءات ثقيلة في الموقع" },
+      { id: "logistics", title: "النقل والخدمات اللوجستية", alt: "شاحنة نقل تجارية على الطريق السريع" },
+      { id: "distribution", title: "التوزيع والسلع الاستهلاكية", alt: "مركز توزيع ومستودع سلع لوجستي" },
+      { id: "construction", title: "المقاولات والإنشاءات", alt: "موقع مقاولات وأعمال إنشائية" },
       { id: "rental", title: "تأجير السيارات", alt: "سيارة على طريق مفتوح" },
-      { id: "corporate", title: "أساطيل الشركات", alt: "مركبات شركات على الطريق" },
+      { id: "corporate", title: "أساطيل الشركات", alt: "حافلة نقل ركاب لأساطيل الشركات على الطريق" },
     ],
   },
   why: {
@@ -720,20 +929,125 @@ const ar: Dictionary = {
       contact: "تواصل معنا",
     },
     company: [
-      { label: "من نحن", href: "#about" },
-      { label: "حلولنا", href: "#solutions" },
-      { label: "القطاعات", href: "#industries" },
-      { label: "تواصل معنا", href: "#contact" },
+      { label: "من نحن", href: "/about" },
+      { label: "حلولنا", href: "/#solutions" },
+      { label: "القطاعات", href: "/#industries" },
+      { label: "تواصل معنا", href: "/#contact" },
     ],
     solutions: ["تتبع المركبات", "مراقبة الوقود", "الصيانة التنبؤية", "سلوك السائقين", "التأمينات والتراخيص"],
     resources: ["الأسئلة الشائعة", "مقالات ورؤى", "الدعم الفني"],
-    start: { demo: "احجز عرضًا تجريبيًا", login: "دخول العملاء" },
+    start: { demo: "احجز عرضًا تجريبيًا", login: "دخول المستخدمين" },
     email: "البريد الإلكتروني",
     phone: "الهاتف",
     privacy: "سياسة الخصوصية",
     terms: "الشروط والأحكام",
     rights: "جميع الحقوق محفوظة.",
     soon: "قريبًا",
+  },
+  aboutPage: {
+    hero: {
+      eyebrow: "من نحن",
+      headline: "نقود عمليات الأساطيل نحو مستقبل أكثر ذكاءً.",
+      description:
+        "في AWA Fleet Guards، نجمع المركبات والسائقين والعمليات التشغيلية في منظومة واحدة متكاملة من خلال التكنولوجيا الذكية والأنظمة المترابطة والرؤى القابلة للتنفيذ.",
+      primary: "احجز عرضًا تجريبيًا",
+      secondary: "اكتشف حلولنا",
+    },
+    intro: {
+      eyebrow: "عن AWA Fleet Guards",
+      headline: "أكثر من مجرد إدارة أساطيل.. طريق أذكى نحو المستقبل.",
+      content:
+        "تركز AWA Fleet Guards على إحداث نقلة نوعية في طريقة إدارة الشركات لأساطيلها. من خلال الدمج بين الأجهزة المتصلة والبرمجيات الذكية وأدوات إدارة الأساطيل المركزية، نساعد الشركات على تحقيق رؤية أوضح، ورفع الكفاءة التشغيلية، واتخاذ قرارات مدروسة.",
+      pillars: [
+        { id: "hardware", title: "أجهزة متصلة", text: "أجهزة وحساسات مخصصة تُركّب في المركبات." },
+        { id: "software", title: "برمجيات ذكية", text: "منصة موحدة تحوّل بيانات الأسطول إلى رؤى واضحة." },
+        { id: "operations", title: "أدوات إدارة مركزية", text: "رؤية تشغيلية شاملة وتحكم متكامل بالأسطول." },
+      ],
+      visualTag: "منظومة الأسطول المترابطة",
+      visualStatus: "منصة متكاملة للأجهزة والبرمجيات",
+      visualAlt: "مركبات الأسطول المتصلة والذكاء التشغيلي",
+    },
+    missionVision: {
+      eyebrow: "الرسالة والرؤية",
+      headline: "ننطلق برؤية واضحة.. لنمنحك تحكمًا أشمل.",
+      mission: {
+        tag: "غايتنا",
+        title: "رسالتنا",
+        text: "تمكين الشركات بحلول ذكية لإدارة الأساطيل تعزز الرؤية التشغيلية، وترفع كفاءة الأداء، وتدعم اتخاذ قرارات أكثر ذكاءً.",
+      },
+      vision: {
+        tag: "تطلعاتنا",
+        title: "رؤيتنا",
+        text: "المساهمة في بناء منظومة نقل أكثر ذكاءً وترابطًا، حيث تساعد التكنولوجيا الشركات على إدارة أساطيلها بثقة أكبر وتحكم أشمل.",
+      },
+    },
+    values: {
+      eyebrow: "ما يحركنا",
+      headline: "قيمنا الأساسية",
+      description:
+        "المبادئ الراسخة التي تقوم عليها كل تقنية نطورها وكل حل نقدمه لإدارة الأساطيل.",
+      items: [
+        {
+          id: "innovation",
+          title: "الابتكار",
+          text: "توظيف التكنولوجيا المتطورة لتقديم حلول أكثر ذكاءً لإدارة الأساطيل.",
+        },
+        {
+          id: "reliability",
+          title: "الموثوقية",
+          text: "بناء أنظمة يعتمد عليها لدعم العمليات التشغيلية اليومية للأساطيل.",
+        },
+        {
+          id: "transparency",
+          title: "الشفافية",
+          text: "تزويد الشركات برؤية أوضح وأدق لكافة أنشطة وحركة أساطيلها.",
+        },
+        {
+          id: "efficiency",
+          title: "الكفاءة",
+          text: "مساعدة الشركات على تحسين استغلال الموارد ورفع مستوى الأداء التشغيلي.",
+        },
+      ],
+    },
+    ecosystem: {
+      eyebrow: "منظومتنا المتكاملة",
+      headline: "كل ما يحتاجه أسطولك.. في منظومة مترابطة.",
+      description:
+        "من التتبع اللحظي للمركبات إلى المراقبة الذكية والتحليلات التنبؤية، تجمع منظومتنا المتكاملة قدرات إدارة الأساطيل الأساسية في منصة مركزية واحدة.",
+      readMore: "اقرأ المزيد",
+    },
+    why: {
+      eyebrow: "لماذا تختار AWA Fleet Guards",
+      headline: "شريك واحد.. لكل تفاصيل أسطولك.",
+      description:
+        "نوفر لك التكنولوجيا والأدوات والقدرات التشغيلية التي تحتاجها شركتك لإدارة أسطولها كمنظومة واحدة مترابطة.",
+      items: [
+        {
+          title: "منظومة متكاملة",
+          text: "الأجهزة والبرمجيات تعمل معًا بتناغم في حل واحد.",
+        },
+        {
+          title: "تكنولوجيا مصممة للغرض",
+          text: "أجهزة وحساسات مخصصة صُممت لعمليات الأساطيل.",
+        },
+        {
+          title: "إدارة مركزية",
+          text: "المعلومات الأساسية للأسطول متاحة عبر منصة واحدة.",
+        },
+        {
+          title: "حلول قابلة للتوسع",
+          text: "تكنولوجيا مصممة لدعم احتياجات الأعمال المتجددة والمتنامية.",
+        },
+      ],
+    },
+    cta: {
+      eyebrow: "ابدأ الآن",
+      headline: "هل أنت مستعد للارتقاء بأسطولك إلى المستوى التالي؟",
+      description:
+        "اكتشف كيف يمكن لـ AWA Fleet Guards مساعدة شركتك على ربط أسطولها، وتحسين عملياتها، واتخاذ قرارات أكثر ذكاءً.",
+      primary: "احجز عرضًا تجريبيًا",
+      secondary: "اكتشف حلولنا",
+    },
   },
 };
 

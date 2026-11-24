@@ -5,7 +5,7 @@ import { LanguageProvider } from "@/components/LanguageProvider";
 import { images } from "@/content/images";
 
 const rubik = Rubik({
-  subsets: ["latin", "arabic"],
+  subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-rubik",
   display: "swap",

@@ -2,15 +2,21 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useLanguage } from "@/components/LanguageProvider";
 import Logo from "@/components/ui/Logo";
+import LoginLink from "@/components/ui/LoginLink";
 import { IconMenu, IconClose } from "@/components/ui/Icons";
 
 export default function Navbar({ forceTone }: { forceTone?: "dark" | "light" } = {}) {
   const { t, toggle } = useLanguage();
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [activeId, setActiveId] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const isAboutPage = pathname === "/about" || pathname?.startsWith("/about/");
+  const isServicePage = pathname?.startsWith("/services");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 36);
@@ -20,6 +26,7 @@ export default function Navbar({ forceTone }: { forceTone?: "dark" | "light" } =
   }, []);
 
   useEffect(() => {
+    if (isAboutPage || isServicePage) return;
     const ids = t.nav.links.map((l) => l.id);
     const elements = ids
       .map((id) => document.getElementById(id))
@@ -36,8 +43,10 @@ export default function Navbar({ forceTone }: { forceTone?: "dark" | "light" } =
     );
     elements.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, [t.nav.links]);
+  }, [t.nav.links, isAboutPage, isServicePage]);
 
+  const currentActiveId = isAboutPage ? "about" : isServicePage ? "solutions" : activeId;
+  const getLinkHref = (id: string) => (id === "about" ? "/about" : `/#${id}`);
   const isLightBg = forceTone ? forceTone === "dark" : scrolled;
 
   return (
@@ -64,11 +73,11 @@ export default function Navbar({ forceTone }: { forceTone?: "dark" | "light" } =
         {/* Desktop Nav */}
         <nav aria-label="Primary navigation" className="hidden lg:flex items-center gap-6 xl:gap-7">
           {t.nav.links.map((link) => {
-            const isActive = activeId === link.id;
+            const isActive = currentActiveId === link.id;
             return (
               <Link
                 key={link.id}
-                href={`/#${link.id}`}
+                href={getLinkHref(link.id)}
                 aria-current={isActive ? "page" : undefined}
                 className={`relative py-2 text-sm font-medium transition-colors ${
                   isLightBg
@@ -108,6 +117,30 @@ export default function Navbar({ forceTone }: { forceTone?: "dark" | "light" } =
             {t.nav.switchTo}
           </button>
 
+          <LoginLink
+            className={`inline-flex min-h-[42px] items-center justify-center gap-2 rounded-full border px-4 text-sm font-semibold transition-all duration-200 ${
+              isLightBg
+                ? "border-navy/20 bg-navy/5 text-navy hover:border-navy hover:bg-navy hover:text-white"
+                : "border-white/30 bg-white/10 text-white hover:border-turquoise hover:bg-turquoise hover:text-navy"
+            }`}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-4 w-4"
+              aria-hidden="true"
+            >
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+              <polyline points="10 17 15 12 10 7" />
+              <line x1="15" y1="12" x2="3" y2="12" />
+            </svg>
+            <span>{t.nav.login}</span>
+          </LoginLink>
+
           <Link href="/#contact" className="btn-primary !min-h-[42px] !px-5 !text-sm">
             {t.nav.demo}
           </Link>
@@ -144,26 +177,43 @@ export default function Navbar({ forceTone }: { forceTone?: "dark" | "light" } =
         <div className="lg:hidden border-t border-line bg-white px-5 py-6 text-ink shadow-lift">
           <nav className="flex flex-col gap-1">
             {t.nav.links.map((link) => (
-              <a
+              <Link
                 key={link.id}
-                href={`#${link.id}`}
+                href={getLinkHref(link.id)}
                 onClick={() => setMenuOpen(false)}
                 className={`rounded-xl px-4 py-3 text-base font-medium transition-colors ${
-                  activeId === link.id ? "bg-offwhite text-ocean-strong" : "text-ink hover:bg-offwhite"
+                  currentActiveId === link.id ? "bg-offwhite text-ocean-strong" : "text-ink hover:bg-offwhite"
                 }`}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
           <div className="mt-5 flex flex-col gap-3 border-t border-line pt-5">
-            <a
+            <LoginLink className="inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-full border border-navy/20 bg-navy/5 px-5 text-sm font-semibold text-navy transition-colors hover:bg-navy hover:text-white">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-4 w-4"
+                aria-hidden="true"
+              >
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                <polyline points="10 17 15 12 10 7" />
+                <line x1="15" y1="12" x2="3" y2="12" />
+              </svg>
+              <span>{t.nav.login}</span>
+            </LoginLink>
+            <Link
               href="/#contact"
               onClick={() => setMenuOpen(false)}
               className="btn-primary w-full justify-center"
             >
               {t.nav.demo}
-            </a>
+            </Link>
           </div>
         </div>
       )}

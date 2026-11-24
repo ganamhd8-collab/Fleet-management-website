@@ -136,11 +136,170 @@
   animation: fade-in 0.45s ease-out both;
 }
 
+/* Seamless Infinite Client Logo Marquee */
+@keyframes marquee-left {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes marquee-right {
+  0% { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+.marquee-track-left {
+  animation: marquee-left 38s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track-right {
+  animation: marquee-right 42s linear infinite;
+  will-change: transform;
+}
+
+.marquee-row:hover .marquee-track-left,
+.marquee-row:hover .marquee-track-right {
+  animation-play-state: paused;
+}
+
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
+}
+
+/* ---------- Coordinated Entrance Sequence: HomeAbout Section ---------- */
+/* Progressive enhancement: only hidden when .js is active before first viewport entry */
+.js .about-stage[data-entered="false"] .about-anim-portal {
+  opacity: 0;
+  transform: scale(0.955);
+  clip-path: inset(6% 0% 6% 10% round 110px 36px 130px 32px);
+}
+.js .about-stage[data-entered="true"] .about-anim-portal {
+  opacity: 1;
+  transform: scale(1);
+  clip-path: inset(0% 0% 0% 0% round 110px 36px 130px 32px);
+  transition:
+    opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
+    transform 0.78s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
+    clip-path 0.78s cubic-bezier(0.22, 1, 0.36, 1) 0ms;
+}
+
+.js .about-stage[data-entered="false"] .about-anim-truck {
+  opacity: 0;
+  transform: translate3d(9%, 4px, 0) scale(0.965);
+}
+.js .about-stage[data-entered="true"] .about-anim-truck {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  transition:
+    opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1) 160ms,
+    transform 0.88s cubic-bezier(0.22, 1, 0.36, 1) 160ms;
+}
+
+.js .about-stage[data-entered="false"] .about-anim-shadow {
+  opacity: 0;
+  transform: scaleX(0.85);
+}
+.js .about-stage[data-entered="true"] .about-anim-shadow {
+  opacity: 1;
+  transform: scaleX(1);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1) 200ms,
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) 200ms;
+}
+
+.js .about-stage[data-entered="false"] .about-anim-label {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+}
+.js .about-stage[data-entered="true"] .about-anim-label {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity 0.58s cubic-bezier(0.22, 1, 0.36, 1) 340ms,
+    transform 0.58s cubic-bezier(0.22, 1, 0.36, 1) 340ms;
+}
+
+.js .about-stage[data-entered="false"] .about-anim-accent {
+  opacity: 0;
+}
+.js .about-stage[data-entered="true"] .about-anim-accent {
+  opacity: 1;
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1) 420ms;
+}
+
+.js .about-stage[data-entered="false"] .about-anim-word {
+  opacity: 0;
+  transform: translate3d(0, 92%, 0);
+}
+.js .about-stage[data-entered="true"] .about-anim-word {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity 0.56s cubic-bezier(0.22, 1, 0.36, 1) var(--word-delay, 440ms),
+    transform 0.68s cubic-bezier(0.22, 1, 0.36, 1) var(--word-delay, 440ms);
+}
+
+.js .about-stage[data-entered="false"] .about-anim-desc {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+}
+.js .about-stage[data-entered="true"] .about-anim-desc {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity 0.62s cubic-bezier(0.22, 1, 0.36, 1) 660ms,
+    transform 0.62s cubic-bezier(0.22, 1, 0.36, 1) 660ms;
+}
+
+.js .about-stage[data-entered="false"] .about-anim-cta {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+}
+.js .about-stage[data-entered="true"] .about-anim-cta {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity 0.58s cubic-bezier(0.22, 1, 0.36, 1) 760ms,
+    transform 0.58s cubic-bezier(0.22, 1, 0.36, 1) 760ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .about-truck-hover:hover .about-truck-img {
+    transform: translate3d(-6px, 0, 0) scale(1.015);
+  }
+  .about-truck-hover:hover .about-shadow-el {
+    transform: scale(1.05);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .js .reveal { opacity: 1; transform: none; transition: none; }
+  .js .about-stage[data-entered="false"] .about-anim-portal,
+  .js .about-stage[data-entered="false"] .about-anim-truck,
+  .js .about-stage[data-entered="false"] .about-anim-shadow,
+  .js .about-stage[data-entered="false"] .about-anim-label,
+  .js .about-stage[data-entered="false"] .about-anim-accent,
+  .js .about-stage[data-entered="false"] .about-anim-word,
+  .js .about-stage[data-entered="false"] .about-anim-desc,
+  .js .about-stage[data-entered="false"] .about-anim-cta,
+  .js .about-stage[data-entered="true"] .about-anim-portal,
+  .js .about-stage[data-entered="true"] .about-anim-truck,
+  .js .about-stage[data-entered="true"] .about-anim-shadow,
+  .js .about-stage[data-entered="true"] .about-anim-label,
+  .js .about-stage[data-entered="true"] .about-anim-accent,
+  .js .about-stage[data-entered="true"] .about-anim-word,
+  .js .about-stage[data-entered="true"] .about-anim-desc,
+  .js .about-stage[data-entered="true"] .about-anim-cta {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    transition: none;
+  }
   .hero-in, .fade-in { animation: none; }
   .route-draw { animation: none; stroke-dashoffset: 0; }
   .flow-dash, .ping::after { animation: none; }
+  .marquee-track-left, .marquee-track-right { animation: none; }
   *, *::before, *::after { transition-duration: 0.01ms !important; }
 }

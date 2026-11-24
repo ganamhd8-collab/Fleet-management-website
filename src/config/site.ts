@@ -22,9 +22,9 @@ export const siteConfig = {
    */
   demoEndpoint: process.env.NEXT_PUBLIC_DEMO_ENDPOINT || "",
 
-  /** Contact placeholders — replace with official details. */
+  /** Official contact details. */
   contact: {
-    email: "[official-email@company.com]",
+    email: "info@awafleetguards.com",
     phone: "[+000 0000 0000]",
   },
 

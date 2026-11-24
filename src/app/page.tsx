@@ -4,6 +4,9 @@ import React from "react";
 import { useLanguage } from "@/components/LanguageProvider";
 import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
+import TrustedClients from "@/components/sections/TrustedClients";
+import CompanyStats from "@/components/sections/CompanyStats";
+import HomeAbout from "@/components/sections/HomeAbout";
 import Solutions from "@/components/sections/Solutions";
 import HowItWorks from "@/components/sections/HowItWorks";
 import Industries from "@/components/sections/Industries";
@@ -27,6 +30,9 @@ export default function HomePage() {
 
       <main id="main-content">
         <Hero />
+        <TrustedClients />
+        <CompanyStats />
+        <HomeAbout />
         <Solutions />
         <HowItWorks />
         <Industries />

@@ -16,7 +16,7 @@ const cardColors: Record<string, string> = {
 
   // Row 2: Management, Specialized Monitoring & AI
   documents: "#8493A5",       // Card 5: Slate Gray
-  cargo: "#14213D",           // Card 6: Midnight Navy
+  cargo: "#48B0B8",           // Card 6: Deep Turquoise
   "ai-assistant": "#65C2C8",  // Card 7: Turquoise
   cameras: "#7FC4A5",         // Card 8: Mint Green
 };

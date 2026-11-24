@@ -113,9 +113,41 @@ export default function BookDemo() {
   return (
     <section id="contact" className="section bg-royal text-white">
       <div className="container grid items-start gap-12 lg:grid-cols-12">
-        <Reveal className="lg:col-span-5 space-y-5">
+        <Reveal className="lg:col-span-5 space-y-6">
           <h2 className="text-h2 font-bold text-white">{t.demo.headline}</h2>
           <p className="text-lead text-white/80 max-w-prose">{t.demo.description}</p>
+
+          {/* Direct Contact Info Card */}
+          <div className="pt-2">
+            <div className="rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur-sm space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-wider text-turquoise">
+                {t.demo.contactGroup}
+              </p>
+              <a
+                href={`mailto:${siteConfig.contact.email}`}
+                className="group inline-flex items-center gap-3 text-sm sm:text-base font-medium text-white hover:text-turquoise transition-colors"
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-turquoise/15 text-turquoise border border-turquoise/30 group-hover:bg-turquoise group-hover:text-navy transition-colors">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={1.75}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-5 w-5"
+                    aria-hidden="true"
+                  >
+                    <rect width="20" height="16" x="2" y="4" rx="2" />
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                  </svg>
+                </span>
+                <span dir="ltr" className="underline underline-offset-4">
+                  {siteConfig.contact.email}
+                </span>
+              </a>
+            </div>
+          </div>
         </Reveal>
 
         <Reveal delay={100} className="lg:col-span-7">

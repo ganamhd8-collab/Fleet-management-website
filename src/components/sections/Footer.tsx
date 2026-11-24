@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { useLanguage } from "@/components/LanguageProvider";
 import { siteConfig } from "@/config/site";
 import Logo from "@/components/ui/Logo";
@@ -27,9 +28,9 @@ export default function Footer() {
             <ul className="space-y-2.5 text-sm text-white/80">
               {t.footer.company.map((item) => (
                 <li key={item.href}>
-                  <a href={item.href} className="hover:text-turquoise transition-colors">
+                  <Link href={item.href} className="hover:text-turquoise transition-colors">
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -43,9 +44,9 @@ export default function Footer() {
             <ul className="space-y-2.5 text-sm text-white/80">
               {t.footer.solutions.map((label) => (
                 <li key={label}>
-                  <a href="#solutions" className="hover:text-turquoise transition-colors">
+                  <Link href="/#solutions" className="hover:text-turquoise transition-colors">
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -74,9 +75,9 @@ export default function Footer() {
               </h3>
               <ul className="space-y-2.5 text-sm text-white/80">
                 <li>
-                  <a href="#contact" className="text-turquoise hover:underline underline-offset-4">
+                  <Link href="/#contact" className="text-turquoise hover:underline underline-offset-4">
                     {t.footer.start.demo}
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <LoginLink className="hover:text-turquoise transition-colors">
@@ -90,7 +91,14 @@ export default function Footer() {
               <p className="font-semibold uppercase tracking-wider text-white/50">
                 {t.footer.columns.contact}
               </p>
-              <p dir="ltr">{siteConfig.contact.email}</p>
+              <p dir="ltr">
+                <a
+                  href={`mailto:${siteConfig.contact.email}`}
+                  className="text-white/85 hover:text-turquoise transition-colors underline underline-offset-4"
+                >
+                  {siteConfig.contact.email}
+                </a>
+              </p>
               <p dir="ltr">{siteConfig.contact.phone}</p>
               <div className="flex flex-wrap gap-3 pt-1">
                 {siteConfig.social.map((s) => (
