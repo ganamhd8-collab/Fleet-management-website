@@ -1,11 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Rubik, Anton, JetBrains_Mono, Archivo } from "next/font/google";
+import { Rubik, Anton, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/components/LanguageProvider";
-import { images } from "@/content/images";
 
 const rubik = Rubik({
-  subsets: ["latin"],
+  subsets: ["latin", "arabic"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-rubik",
   display: "swap",
@@ -25,18 +24,12 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const archivo = Archivo({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-archivo",
-  display: "swap",
-});
-
 const BASE_PATH =
   process.env.NEXT_PUBLIC_BASE_PATH ||
   (process.env.NEXT_PUBLIC_GITHUB_PAGES === "true" ? "/Fleet-management-website" : "");
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.awafleetguards.com"),
   title: "AWA Fleet Guards — One Integrated Ecosystem. Complete Fleet Intelligence.",
   description:
     "AWA Fleet Guards combines dedicated hardware, intelligent software, and fleet operations management for businesses in Egypt, Saudi Arabia, and the GCC.",
@@ -44,6 +37,21 @@ export const metadata: Metadata = {
     title: "AWA Fleet Guards — Integrated Fleet Management",
     description: "Connect your vehicles, drivers, and operations through one integrated fleet management ecosystem.",
     type: "website",
+    siteName: "AWA Fleet Guards",
+    images: [
+      {
+        url: `${BASE_PATH}/og-image.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "AWA Fleet Guards truck connected to a live tracking network",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AWA Fleet Guards — Integrated Fleet Management",
+    description: "Connect your vehicles, drivers, and operations through one integrated fleet management ecosystem.",
+    images: [`${BASE_PATH}/og-image.jpg`],
   },
   icons: {
     icon: [
@@ -66,7 +74,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html
       lang="en"
       dir="ltr"
-      className={`${rubik.variable} ${anton.variable} ${jetbrainsMono.variable} ${archivo.variable}`}
+      className={`${rubik.variable} ${anton.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -80,13 +88,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="preconnect" href="https://d2ol7oe51mr4n9.cloudfront.net" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://d2ol7oe51mr4n9.cloudfront.net" />
 
-        {/* Instant LCP Discovery: High-priority responsive image preload */}
+        {/* LCP: the first frame of the hero sequence is the first thing visitors see */}
         <link
           rel="preload"
           as="image"
-          href={images.hero}
-          imageSrcSet={`${images.heroMobile} 640w, ${images.hero} 1080w`}
-          imageSizes="(max-width: 768px) 100vw, 100vw"
+          type="image/webp"
+          href={`${BASE_PATH}/assets/hero-sequence-v2/frame_0001.webp`}
           fetchPriority="high"
         />
       </head>

@@ -112,7 +112,7 @@ export default function ServiceDetailView({ serviceId }: { serviceId: string }) 
                     decoding="async"
                     className="h-full w-full object-cover"
                   />
-                  <span className="absolute top-4 end-4 rounded-full bg-navy/75 px-3 py-1 text-[11px] font-medium text-white/85 backdrop-blur-sm">
+                  <span className="absolute top-4 end-4 rounded-full bg-navy/75 px-3 py-1 text-xs font-medium text-white/85 backdrop-blur-sm">
                     {t.solutions.illustrative}
                   </span>
                 </div>

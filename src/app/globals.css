@@ -40,7 +40,7 @@
 
 @layer components {
   .btn {
-    @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full px-6 text-[15px] font-semibold transition duration-200 ease-out;
+    @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full px-6 text-base font-semibold transition duration-200 ease-out;
   }
   .btn-primary {
     @apply btn bg-ocean-strong text-white hover:bg-royal active:translate-y-px;
@@ -58,7 +58,7 @@
     @apply text-sm font-semibold text-ocean-strong;
   }
   .field {
-    @apply block w-full min-h-[48px] rounded-xl border border-line bg-white px-4 text-[15px] text-ink transition placeholder:text-slate focus:border-ocean focus:outline-none focus:ring-4 focus:ring-ocean/15;
+    @apply block w-full min-h-[48px] rounded-xl border border-line bg-white px-4 text-base text-ink transition placeholder:text-slate focus:border-ocean focus:outline-none focus:ring-4 focus:ring-ocean/15;
   }
   .field[aria-invalid="true"] {
     @apply border-[#C2413A] focus:ring-[#C2413A]/15;

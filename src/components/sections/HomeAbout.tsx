@@ -59,7 +59,7 @@ export default function HomeAbout() {
       id="about-preview"
       data-entered={entered ? "true" : "false"}
       aria-label={t.homeAbout.headline}
-      className="about-stage relative overflow-hidden bg-[#F2F6FA] py-20 sm:py-24 lg:py-32 border-b border-line"
+      className="about-stage relative overflow-hidden bg-offwhite py-20 sm:py-24 lg:py-32 border-b border-line"
     >
       {/* Restrained Ambient Background Wash */}
       <div
@@ -67,7 +67,7 @@ export default function HomeAbout() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(circle at 24% 50%, rgba(85, 197, 199, 0.10), transparent 52%), radial-gradient(circle at 85% 20%, rgba(20, 33, 63, 0.04), transparent 45%)",
+            "radial-gradient(circle at 24% 50%, rgba(101, 194, 200, 0.10), transparent 52%), radial-gradient(circle at 85% 20%, rgba(20, 33, 61, 0.04), transparent 45%)",
         }}
       />
 
@@ -79,22 +79,22 @@ export default function HomeAbout() {
               ========================================================= */}
           <div className="lg:col-span-7" dir="ltr">
             <div className="about-truck-hover relative mx-auto w-full max-w-[780px] aspect-[16/10] select-none">
-              {/* Layer 1 (z-10): Main Deep Navy (#14213F) Asymmetric Architectural Shape */}
+              {/* Layer 1 (z-10): Main Deep Navy (#14213D) Asymmetric Architectural Shape */}
               <div
                 aria-hidden="true"
-                className="about-anim-portal pointer-events-none absolute top-[10%] bottom-[12%] left-[16%] right-[3%] z-10 overflow-hidden rounded-tl-[110px] rounded-tr-[36px] rounded-br-[130px] rounded-bl-[32px] bg-[#14213F] shadow-[0_22px_44px_-12px_rgba(20,33,63,0.32)]"
+                className="about-anim-portal pointer-events-none absolute top-[10%] bottom-[12%] left-[16%] right-[3%] z-10 overflow-hidden rounded-tl-[110px] rounded-tr-[36px] rounded-br-[130px] rounded-bl-[32px] bg-navy shadow-[0_22px_44px_-12px_rgba(20,33,61,0.32)]"
               >
                 {/* Ambient Turquoise Portal Glow Near the Emergence Point (Upper-Left) */}
                 <div
                   className="absolute inset-0"
                   style={{
                     background:
-                      "radial-gradient(circle at 24% 30%, rgba(85, 197, 199, 0.24), transparent 52%)",
+                      "radial-gradient(circle at 24% 30%, rgba(101, 194, 200, 0.24), transparent 52%)",
                   }}
                 />
 
                 {/* Subtle Architectural Rings Inside the Portal */}
-                <div className="absolute -left-16 -top-16 h-72 w-72 rounded-full border border-[#55C5C7]/15" />
+                <div className="absolute -left-16 -top-16 h-72 w-72 rounded-full border border-turquoise/15" />
                 <div className="absolute -left-6 -top-6 h-56 w-56 rounded-full border border-white/[0.06]" />
               </div>
 
@@ -103,7 +103,7 @@ export default function HomeAbout() {
                 aria-hidden="true"
                 className="about-anim-shadow pointer-events-none absolute bottom-[8.5%] left-[0%] z-[15] w-[42%] h-6 sm:h-7"
               >
-                <div className="about-shadow-el h-full w-full rounded-[100%] bg-[#0B1528]/26 blur-lg transition-transform duration-700" />
+                <div className="about-shadow-el h-full w-full rounded-[100%] bg-navy-950/26 blur-lg transition-transform duration-700" />
               </div>
 
               {/* Layer 3 (z-20): The Transparent AWA FleetGuards Scania Truck Emerging from the Portal */}
@@ -121,20 +121,20 @@ export default function HomeAbout() {
               </div>
 
               {/* Layer 4 (z-30): Foreground Geometric Portal Mask + Enlarged Bold White "ABOUT AWA FLEETGUARDS" */}
-              <div className="about-anim-portal pointer-events-none absolute top-[10%] bottom-[12%] left-[16%] right-[3%] z-30 overflow-hidden rounded-tl-[110px] rounded-tr-[36px] rounded-br-[130px] rounded-bl-[32px] border border-[#55C5C7]/30">
+              <div className="about-anim-portal pointer-events-none absolute top-[10%] bottom-[12%] left-[16%] right-[3%] z-30 overflow-hidden rounded-tl-[110px] rounded-tr-[36px] rounded-br-[130px] rounded-bl-[32px] border border-turquoise/30">
                 {/* Balanced Right-Side & Bottom-Right Navy Shadow Mask */}
                 <div
                   aria-hidden="true"
                   className="absolute inset-0"
                   style={{
                     background:
-                      "linear-gradient(270deg, #14213F 0%, #14213F 14%, rgba(20, 33, 63, 0.86) 28%, rgba(20, 33, 63, 0.36) 44%, transparent 60%), radial-gradient(ellipse 56% 48% at 88% 96%, #14213F 0%, rgba(20, 33, 63, 0.85) 38%, rgba(20, 33, 63, 0.35) 68%, transparent 94%)",
+                      "linear-gradient(270deg, #14213D 0%, #14213D 14%, rgba(20, 33, 61, 0.86) 28%, rgba(20, 33, 61, 0.36) 44%, transparent 60%), radial-gradient(ellipse 56% 48% at 88% 96%, #14213D 0%, rgba(20, 33, 61, 0.85) 38%, rgba(20, 33, 61, 0.35) 68%, transparent 94%)",
                   }}
                 />
 
                 {/* Slightly Enlarged Bold White "ABOUT AWA FLEETGUARDS" in the Upper Corner */}
                 <div className="absolute top-6 sm:top-7 left-14 sm:left-16 right-8 flex items-center justify-between gap-4">
-                  <span className="about-anim-label inline-block text-sm sm:text-base md:text-[18px] lg:text-[19px] font-extrabold uppercase tracking-[0.15em] text-white drop-shadow-sm">
+                  <span className="about-anim-label inline-block text-sm sm:text-base md:text-lg font-bold uppercase tracking-[0.15em] text-white drop-shadow-sm">
                     {t.homeAbout.eyebrow}
                   </span>
 
@@ -142,15 +142,15 @@ export default function HomeAbout() {
                     aria-hidden="true"
                     className="about-anim-accent hidden sm:flex items-center gap-2"
                   >
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#55C5C7]" />
-                    <span className="h-[1.5px] w-12 rounded-full bg-gradient-to-r from-[#55C5C7]/80 to-transparent" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-turquoise" />
+                    <span className="h-[1.5px] w-12 rounded-full bg-gradient-to-r from-turquoise/80 to-transparent" />
                   </div>
                 </div>
 
                 {/* Subtle Foreground Turquoise Rim Along the Bottom Portal Edge */}
                 <div
                   aria-hidden="true"
-                  className="about-anim-accent absolute bottom-0 left-[22%] right-[14%] h-[2.5px] rounded-full bg-gradient-to-r from-[#55C5C7] via-[#55C5C7]/60 to-transparent"
+                  className="about-anim-accent absolute bottom-0 left-[22%] right-[14%] h-[2.5px] rounded-full bg-gradient-to-r from-turquoise via-turquoise/60 to-transparent"
                 />
               </div>
             </div>
@@ -165,7 +165,7 @@ export default function HomeAbout() {
               {/* Main Heading with Progressive Masked Word-by-Word Reveal */}
               <h2
                 aria-label={t.homeAbout.headline}
-                className="text-[clamp(2rem,3.4vw,3.1rem)] font-bold tracking-tight text-[#14213F] leading-[1.14]"
+                className="text-[clamp(2rem,3.4vw,3.1rem)] font-bold tracking-tight text-navy leading-[1.14]"
               >
                 {headlineWords.map((word, idx) => {
                   const delayMs =
@@ -188,7 +188,7 @@ export default function HomeAbout() {
               </h2>
 
               {/* Concise Description */}
-              <p className="about-anim-desc text-base sm:text-[17.5px] text-[#4A5568] leading-[1.7] max-w-[48ch]">
+              <p className="about-anim-desc text-base text-ink-muted leading-[1.7] max-w-[48ch]">
                 {t.homeAbout.description}
               </p>
 
@@ -196,10 +196,10 @@ export default function HomeAbout() {
               <div className="about-anim-cta pt-2">
                 <Link
                   href="/about"
-                  className="group inline-flex items-center gap-3 rounded-full bg-[#14213F] px-7 py-3.5 text-sm sm:text-[15px] font-semibold text-white shadow-[0_12px_28px_-8px_rgba(20,33,63,0.35)] transition-all duration-300 hover:bg-[#1D315C] hover:shadow-[0_16px_32px_-8px_rgba(20,33,63,0.45)]"
+                  className="group inline-flex items-center gap-3 rounded-full bg-navy px-7 py-3.5 text-sm sm:text-base font-semibold text-white shadow-[0_12px_28px_-8px_rgba(20,33,61,0.35)] transition-all duration-300 hover:bg-navy-800 hover:shadow-[0_16px_32px_-8px_rgba(20,33,61,0.45)]"
                 >
                   <span>{t.homeAbout.cta}</span>
-                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#55C5C7]/20 text-[#55C5C7] transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-turquoise/20 text-turquoise transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">
                     <IconArrow className="h-3.5 w-3.5" />
                   </span>
                 </Link>

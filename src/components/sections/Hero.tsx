@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLanguage } from "@/components/LanguageProvider";
 import LoginLink from "@/components/ui/LoginLink";
+import { isDashboardConfigured } from "@/config/site";
 import { IconArrow } from "@/components/ui/Icons";
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
@@ -255,10 +256,10 @@ export default function Hero() {
       ref={sectionRef}
       id="home"
       aria-label={t.hero.headline}
-      className="relative h-[260vh] md:h-[400vh] bg-[#0B192C] pt-20 text-white"
+      className="relative h-[260vh] md:h-[400vh] bg-navy-950 pt-20 text-white"
     >
       {/* Pinned Viewport Offset Cleanly Below the 80px Navbar */}
-      <div className="sticky top-20 flex h-[calc(100vh-5rem)] w-full flex-col justify-start overflow-hidden bg-[#0B192C]">
+      <div className="sticky top-20 flex h-[calc(100vh-5rem)] w-full flex-col justify-start overflow-hidden bg-navy-950">
         {/* Layer 1 (z-1): High-DPI Canvas Rendering the 370-Frame WebP Sequence */}
         <div className="pointer-events-none absolute inset-0 z-[1]">
           {/* Explicit LCP Poster Frame (instant render before canvas init) */}
@@ -287,7 +288,7 @@ export default function Hero() {
         {/* Layer 2 (z-2): Uniform Full-Coverage Translucent Dark Navy Contrast Overlay */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-[2] h-full w-full bg-[#0B192C]/50 backdrop-blur-[0.5px]"
+          className="pointer-events-none absolute inset-0 z-[2] h-full w-full bg-navy-950/50 backdrop-blur-[0.5px]"
         />
 
         {/* Subtle Bottom Transition Fade as Hero Meets Next Section */}
@@ -295,7 +296,7 @@ export default function Hero() {
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-32"
           style={{
-            background: `linear-gradient(180deg, transparent 0%, rgba(11, 25, 44, 0.65) 55%, rgba(255, 255, 255, ${(exitFade * 0.95).toFixed(2)}) 100%)`,
+            background: `linear-gradient(180deg, transparent 0%, rgba(13, 22, 41, 0.65) 55%, rgba(255, 255, 255, ${(exitFade * 0.95).toFixed(2)}) 100%)`,
           }}
         />
 
@@ -308,7 +309,7 @@ export default function Hero() {
             </h1>
 
             {/* Restored Description */}
-            <p className="max-w-[760px] text-[15px] leading-relaxed text-white/90 sm:text-lg drop-shadow-sm">
+            <p className="max-w-[760px] text-base leading-relaxed text-white/90 sm:text-lg drop-shadow-sm">
               {chapter.description}
             </p>
 
@@ -324,12 +325,14 @@ export default function Hero() {
                     {t.hero.secondary}
                   </a>
                 </div>
+                {isDashboardConfigured && (
                 <p className="text-xs sm:text-sm text-white/80">
                   {t.hero.clientPrefix}{" "}
                   <LoginLink className="font-semibold text-turquoise underline underline-offset-4 hover:text-white transition-colors">
                     {t.hero.clientLink}
                   </LoginLink>
                 </p>
+                )}
               </div>
             )}
 

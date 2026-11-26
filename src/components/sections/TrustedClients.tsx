@@ -58,7 +58,7 @@ function MarqueeRow({
               <div
                 key={`${dupIdx}-${client.id}`}
                 title={client.name}
-                className="group/logo flex h-[84px] w-[178px] sm:h-[94px] sm:w-[210px] shrink-0 items-center justify-center rounded-2xl border border-[#14213F]/[0.08] bg-white px-6 py-3.5 shadow-[0_2px_10px_rgba(20,33,63,0.03)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#55C5C7]/60 hover:shadow-[0_12px_28px_-10px_rgba(20,33,63,0.12)]"
+                className="group/logo flex h-[84px] w-[178px] sm:h-[94px] sm:w-[210px] shrink-0 items-center justify-center rounded-2xl border border-navy/[0.08] bg-white px-6 py-3.5 shadow-[0_2px_10px_rgba(20,33,61,0.03)] transition-all duration-300 hover:-translate-y-0.5 hover:border-turquoise/60 hover:shadow-[0_12px_28px_-10px_rgba(20,33,61,0.12)]"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -88,11 +88,11 @@ export default function TrustedClients() {
     >
       <div className="container">
         <Reveal className="mx-auto max-w-2xl text-center space-y-3">
-          <h2 className="text-[clamp(1.75rem,3vw,2.6rem)] font-bold tracking-tight text-[#14213F] leading-tight">
+          <h2 className="text-[clamp(1.75rem,3vw,2.6rem)] font-bold tracking-tight text-navy leading-tight">
             {t.trustedClients.headline}
           </h2>
 
-          <p className="text-base sm:text-lg text-[#4A5568] leading-relaxed">
+          <p className="text-base sm:text-lg text-ink-muted leading-relaxed">
             {t.trustedClients.subtitle}
           </p>
         </Reveal>

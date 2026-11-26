@@ -71,6 +71,13 @@
       "skillPath": "skills/emil-design-eng/SKILL.md",
       "computedHash": "e1b377ccde1d32743d1d3f7d8626629deb8055c9114d180c184697928cc66cc6"
     },
+    "figma-designer": {
+      "source": "elayadesign/ai-design-skills",
+      "commit": "456d9e0d3e2d84c748bb143c6ca3d90c45e16213",
+      "sourceType": "github",
+      "skillPath": "skills/figma-designer/SKILL.md",
+      "computedHash": "7dd0425720ec529650af8fc6840eb7c02ae1721dd895dcfbc68b4c741658f607"
+    },
     "find-animation-opportunities": {
       "source": "emilkowalski/skills",
       "commit": "64eb3deb9a5fbfa041faf783e0bc3fd635872e9c",
@@ -91,6 +98,13 @@
       "sourceType": "github",
       "skillPath": "skills/improve-animations/SKILL.md",
       "computedHash": "5c33add82a79754bec0d7ee3376525e24e77b34575d5ae29d0c204f730356eab"
+    },
+    "landing-page-design": {
+      "source": "elayadesign/ai-design-skills",
+      "commit": "456d9e0d3e2d84c748bb143c6ca3d90c45e16213",
+      "sourceType": "github",
+      "skillPath": "skills/landing-page-design/SKILL.md",
+      "computedHash": "98fa8463d5fc56f969d52f24512366d66655271080cb67b43ca0790d8e951bc6"
     },
     "learn-taste": {
       "source": "emilkowalski/skills",
@@ -119,6 +133,13 @@
       "sourceType": "github",
       "skillPath": "skills/prototype/SKILL.md",
       "computedHash": "00fb13a91dbb746e2be91ae4dd67c4cc1f9907351f2d404a0cc6c849be1ebd95"
+    },
+    "redesign-existing-projects": {
+      "source": "elayadesign/redesign-skill",
+      "commit": "7df13f6a289f4a7f91c5fe3efd70f51fd584ec28",
+      "sourceType": "github",
+      "skillPath": "skills/redesign-existing-projects/SKILL.md",
+      "computedHash": "e12c02d9d956bca6bd26762aea2c01e16004dc37c00edb81b97bea6ed3617287"
     },
     "remove-animations": {
       "source": "emilkowalski/skills",

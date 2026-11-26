@@ -4,6 +4,13 @@ const en = {
   meta: {
     skip: "Skip to main content",
   },
+  notFound: {
+    code: "Error 404",
+    title: "We couldn't find that page",
+    text: "The link may be old or mistyped. Head back to the homepage or book a demo and our team will take it from there.",
+    home: "Back to homepage",
+    demo: "Book a Demo",
+  },
   nav: {
     links: [
       { id: "home", label: "Home" },
@@ -531,6 +538,13 @@ export type Dictionary = typeof en;
 const ar: Dictionary = {
   meta: {
     skip: "الانتقال إلى المحتوى الرئيسي",
+  },
+  notFound: {
+    code: "خطأ 404",
+    title: "لم نتمكن من العثور على هذه الصفحة",
+    text: "ربما يكون الرابط قديمًا أو مكتوبًا بشكل غير صحيح. عد إلى الصفحة الرئيسية أو احجز عرضًا تجريبيًا وسيتواصل معك فريقنا.",
+    home: "العودة إلى الصفحة الرئيسية",
+    demo: "احجز عرضًا تجريبيًا",
   },
   nav: {
     links: [

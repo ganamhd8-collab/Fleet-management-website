@@ -23,7 +23,7 @@ export default function WhyAWAFleetGuards() {
                   0{i + 1}
                 </span>
                 <h3 className="sm:col-span-5 text-lg font-semibold text-ink">{item.title}</h3>
-                <p className="sm:col-span-5 text-[15px] leading-relaxed text-ink-muted">{item.text}</p>
+                <p className="sm:col-span-5 text-base leading-relaxed text-ink-muted">{item.text}</p>
               </div>
             </Reveal>
           ))}

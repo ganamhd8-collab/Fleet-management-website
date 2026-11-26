@@ -44,7 +44,8 @@ const initialState: FormState = {
 };
 
 export default function BookDemo() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+  const [honeypot, setHoneypot] = useState("");
   const [form, setForm] = useState<FormState>(initialState);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -85,18 +86,33 @@ export default function BookDemo() {
     if (Object.keys(v).length > 0) return;
 
     setStatus("submitting");
-    if (siteConfig.demoEndpoint) {
-      try {
-        const res = await fetch(siteConfig.demoEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
-        });
-        if (!res.ok) throw new Error("Request failed");
-      } catch {
-        setStatus("error");
-        return;
-      }
+
+    // Never show "success" when the request wasn't actually sent anywhere.
+    if (!siteConfig.demoEndpoint) {
+      console.error("Demo form: NEXT_PUBLIC_DEMO_ENDPOINT is not set, so the request was not sent.");
+      setStatus("error");
+      return;
+    }
+
+    try {
+      // Sent as text/plain (no custom headers) so the browser makes a "simple"
+      // request — Google Apps Script web apps don't answer CORS preflights.
+      const res = await fetch(siteConfig.demoEndpoint, {
+        method: "POST",
+        body: JSON.stringify({
+          ...form,
+          website: honeypot,
+          lang,
+          page: window.location.href,
+        }),
+      });
+      if (!res.ok) throw new Error("Request failed");
+      const data = await res.json().catch(() => null);
+      if (data && data.ok === false) throw new Error(data.error || "Request rejected");
+    } catch (err) {
+      console.error("Demo form submission failed:", err);
+      setStatus("error");
+      return;
     }
     setStatus("success");
   };
@@ -177,14 +193,29 @@ export default function BookDemo() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} noValidate className="space-y-7">
+                {/* Spam trap: hidden from people, bots tend to fill it in. */}
+                <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+                  <label>
+                    Website
+                    <input
+                      type="text"
+                      name="website"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                    />
+                  </label>
+                </div>
+
                 {Object.keys(errors).length > 0 && (
-                  <p role="alert" className="rounded-xl bg-[#C2413A]/10 px-4 py-3 text-sm font-medium text-[#C2413A]">
+                  <p role="alert" className="rounded-xl bg-danger/10 px-4 py-3 text-sm font-medium text-danger">
                     {t.demo.errors.summary}
                   </p>
                 )}
 
                 {status === "error" && (
-                  <p role="alert" className="rounded-xl bg-[#C2413A]/10 px-4 py-3 text-sm font-medium text-[#C2413A]">
+                  <p role="alert" className="rounded-xl bg-danger/10 px-4 py-3 text-sm font-medium text-danger">
                     {t.demo.errors.network}
                   </p>
                 )}
@@ -209,7 +240,7 @@ export default function BookDemo() {
                         aria-invalid={Boolean(errors.fullName)}
                         className="field"
                       />
-                      {errors.fullName && <p className="mt-1 text-xs text-[#C2413A]">{errors.fullName}</p>}
+                      {errors.fullName && <p className="mt-1 text-xs text-danger">{errors.fullName}</p>}
                     </div>
 
                     <div>
@@ -225,7 +256,7 @@ export default function BookDemo() {
                         aria-invalid={Boolean(errors.company)}
                         className="field"
                       />
-                      {errors.company && <p className="mt-1 text-xs text-[#C2413A]">{errors.company}</p>}
+                      {errors.company && <p className="mt-1 text-xs text-danger">{errors.company}</p>}
                     </div>
                   </div>
 
@@ -244,7 +275,7 @@ export default function BookDemo() {
                         aria-invalid={Boolean(errors.email)}
                         className="field"
                       />
-                      {errors.email && <p className="mt-1 text-xs text-[#C2413A]">{errors.email}</p>}
+                      {errors.email && <p className="mt-1 text-xs text-danger">{errors.email}</p>}
                     </div>
 
                     <div>
@@ -274,7 +305,7 @@ export default function BookDemo() {
                           className="field"
                         />
                       </div>
-                      {errors.phone && <p className="mt-1 text-xs text-[#C2413A]">{errors.phone}</p>}
+                      {errors.phone && <p className="mt-1 text-xs text-danger">{errors.phone}</p>}
                     </div>
                   </div>
                 </fieldset>
@@ -302,7 +333,7 @@ export default function BookDemo() {
                           <option key={c} value={c}>{c}</option>
                         ))}
                       </select>
-                      {errors.country && <p className="mt-1 text-xs text-[#C2413A]">{errors.country}</p>}
+                      {errors.country && <p className="mt-1 text-xs text-danger">{errors.country}</p>}
                     </div>
 
                     <div>
@@ -321,7 +352,7 @@ export default function BookDemo() {
                           <option key={ind} value={ind}>{ind}</option>
                         ))}
                       </select>
-                      {errors.industry && <p className="mt-1 text-xs text-[#C2413A]">{errors.industry}</p>}
+                      {errors.industry && <p className="mt-1 text-xs text-danger">{errors.industry}</p>}
                     </div>
 
                     <div>
@@ -340,7 +371,7 @@ export default function BookDemo() {
                           <option key={sz} value={sz}>{sz}</option>
                         ))}
                       </select>
-                      {errors.fleetSize && <p className="mt-1 text-xs text-[#C2413A]">{errors.fleetSize}</p>}
+                      {errors.fleetSize && <p className="mt-1 text-xs text-danger">{errors.fleetSize}</p>}
                     </div>
                   </div>
 
@@ -370,7 +401,7 @@ export default function BookDemo() {
                         );
                       })}
                     </div>
-                    {errors.services && <p className="mt-1.5 text-xs text-[#C2413A]">{errors.services}</p>}
+                    {errors.services && <p className="mt-1.5 text-xs text-danger">{errors.services}</p>}
                   </div>
                 </fieldset>
 
@@ -385,7 +416,7 @@ export default function BookDemo() {
                     />
                     <span>{t.demo.fields.consent}</span>
                   </label>
-                  {errors.consent && <p className="mt-1 text-xs text-[#C2413A]">{errors.consent}</p>}
+                  {errors.consent && <p className="mt-1 text-xs text-danger">{errors.consent}</p>}
                 </div>
 
                 <button

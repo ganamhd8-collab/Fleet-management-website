@@ -32,12 +32,13 @@ const config: Config = {
         },
         line: "#DDE3EA",
         warn: "#C98A1B",
+        // Form errors and destructive states.
+        danger: "#C2413A",
       },
       fontFamily: {
         sans: ["var(--font-rubik)", "system-ui", "sans-serif"],
         arabic: ["var(--font-rubik)", "system-ui", "sans-serif"],
         anton: ["var(--font-anton)", "var(--font-rubik)", "sans-serif"],
-        archivo: ["var(--font-archivo)", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       fontSize: {

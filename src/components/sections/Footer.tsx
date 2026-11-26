@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useLanguage } from "@/components/LanguageProvider";
-import { siteConfig } from "@/config/site";
+import { siteConfig, isDashboardConfigured, isPhoneConfigured, activeSocial, legalLinks } from "@/config/site";
 import Logo from "@/components/ui/Logo";
 import LoginLink from "@/components/ui/LoginLink";
 
@@ -37,7 +37,7 @@ export default function Footer() {
           </div>
 
           {/* Solutions */}
-          <div className="lg:col-span-2 space-y-3">
+          <div className="lg:col-span-3 space-y-3">
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/50">
               {t.footer.columns.solutions}
             </h3>
@@ -52,23 +52,8 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Resources */}
-          <div className="lg:col-span-2 space-y-3">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-white/50">
-              {t.footer.columns.resources}
-            </h3>
-            <ul className="space-y-2.5 text-sm text-white/55">
-              {t.footer.resources.map((label) => (
-                <li key={label} className="flex items-center justify-between gap-2">
-                  <span>{label}</span>
-                  <span className="text-[11px] text-white/40">{t.footer.soon}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           {/* Get Started & Contact */}
-          <div className="lg:col-span-2 space-y-5">
+          <div className="lg:col-span-3 space-y-5">
             <div className="space-y-3">
               <h3 className="text-xs font-semibold uppercase tracking-wider text-white/50">
                 {t.footer.columns.start}
@@ -79,11 +64,13 @@ export default function Footer() {
                     {t.footer.start.demo}
                   </Link>
                 </li>
-                <li>
-                  <LoginLink className="hover:text-turquoise transition-colors">
-                    {t.footer.start.login}
-                  </LoginLink>
-                </li>
+                {isDashboardConfigured && (
+                  <li>
+                    <LoginLink className="hover:text-turquoise transition-colors">
+                      {t.footer.start.login}
+                    </LoginLink>
+                  </li>
+                )}
               </ul>
             </div>
 
@@ -99,21 +86,31 @@ export default function Footer() {
                   {siteConfig.contact.email}
                 </a>
               </p>
-              <p dir="ltr">{siteConfig.contact.phone}</p>
-              <div className="flex flex-wrap gap-3 pt-1">
-                {siteConfig.social.map((s) => (
+              {isPhoneConfigured && (
+                <p dir="ltr">
                   <a
-                    key={s.id}
-                    href={s.href}
-                    onClick={(e) => {
-                      if (s.href === "#") e.preventDefault();
-                    }}
-                    className="text-white/60 hover:text-turquoise transition-colors"
+                    href={`tel:${siteConfig.contact.phone.replace(/[^\d+]/g, "")}`}
+                    className="hover:text-turquoise transition-colors"
                   >
-                    {s.label}
+                    {siteConfig.contact.phone}
                   </a>
-                ))}
-              </div>
+                </p>
+              )}
+              {activeSocial.length > 0 && (
+                <div className="flex flex-wrap gap-3 pt-1">
+                  {activeSocial.map((s) => (
+                    <a
+                      key={s.id}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white/60 hover:text-turquoise transition-colors"
+                    >
+                      {s.label}
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -123,10 +120,20 @@ export default function Footer() {
           <p>
             © {new Date().getFullYear()} {siteConfig.brandName}. {t.footer.rights}
           </p>
-          <div className="flex items-center gap-6">
-            <span>{t.footer.privacy}</span>
-            <span>{t.footer.terms}</span>
-          </div>
+          {(legalLinks.privacy || legalLinks.terms) && (
+            <div className="flex items-center gap-6">
+              {legalLinks.privacy && (
+                <Link href={legalLinks.privacy} className="hover:text-white transition-colors">
+                  {t.footer.privacy}
+                </Link>
+              )}
+              {legalLinks.terms && (
+                <Link href={legalLinks.terms} className="hover:text-white transition-colors">
+                  {t.footer.terms}
+                </Link>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </footer>

@@ -55,7 +55,7 @@ export default function Solutions() {
                       {item.title}
                     </h3>
 
-                    <p className="text-[14.5px] leading-relaxed text-white">
+                    <p className="text-sm leading-relaxed text-white">
                       {item.description}
                     </p>
                   </div>

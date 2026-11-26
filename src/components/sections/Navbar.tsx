@@ -45,7 +45,9 @@ export default function Navbar({ forceTone }: { forceTone?: "dark" | "light" } =
     return () => io.disconnect();
   }, [t.nav.links, isAboutPage, isServicePage]);
 
-  const currentActiveId = isAboutPage ? "about" : isServicePage ? "solutions" : activeId;
+  const isHomePage = pathname === "/";
+  // On pages outside the main sections (e.g. the 404 page) no link is marked active.
+  const currentActiveId = isAboutPage ? "about" : isServicePage ? "solutions" : isHomePage ? activeId : "";
   const getLinkHref = (id: string) => (id === "about" ? "/about" : `/#${id}`);
   const isLightBg = forceTone ? forceTone === "dark" : scrolled;
 
@@ -71,7 +73,7 @@ export default function Navbar({ forceTone }: { forceTone?: "dark" | "light" } =
         </Link>
 
         {/* Desktop Nav */}
-        <nav aria-label="Primary navigation" className="hidden lg:flex items-center gap-6 xl:gap-7">
+        <nav aria-label="Primary navigation" className="hidden lg:flex items-center gap-4 xl:gap-7">
           {t.nav.links.map((link) => {
             const isActive = currentActiveId === link.id;
             return (
@@ -79,7 +81,7 @@ export default function Navbar({ forceTone }: { forceTone?: "dark" | "light" } =
                 key={link.id}
                 href={getLinkHref(link.id)}
                 aria-current={isActive ? "page" : undefined}
-                className={`relative py-2 text-sm font-medium transition-colors ${
+                className={`relative whitespace-nowrap py-2 text-sm font-medium transition-colors ${
                   isLightBg
                     ? isActive
                       ? "text-ocean-strong"

@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     description:
       "More Than Fleet Management. A Smarter Way Forward. Discover AWA Fleet Guards' mission, vision, core values, and integrated fleet ecosystem.",
     type: "website",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
   },
 };
 

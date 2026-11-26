@@ -7,7 +7,7 @@ import Reveal from "@/components/ui/Reveal";
 
 /**
  * Individualized visual treatments for each industry card to achieve
- * a cohesive, cinematic, and brand-aligned corporate look (#14213D / #287FBA / #5DC1C7).
+ * a cohesive, cinematic, and brand-aligned corporate look (#14213D / #2A7EBD / #65C2C8).
  */
 const industryTreatments: Record<
   string,
@@ -19,7 +19,7 @@ const industryTreatments: Record<
   logistics: {
     gradient:
       "linear-gradient(180deg, rgba(20, 33, 61, 0.0) 0%, rgba(20, 33, 61, 0.15) 55%, rgba(20, 33, 61, 0.82) 100%)",
-    accentColor: "#5DC1C7",
+    accentColor: "#65C2C8",
   },
   distribution: {
     gradient:
@@ -29,12 +29,12 @@ const industryTreatments: Record<
   construction: {
     gradient:
       "linear-gradient(180deg, rgba(20, 33, 61, 0.0) 0%, rgba(20, 33, 61, 0.22) 55%, rgba(20, 33, 61, 0.86) 100%)",
-    accentColor: "#287FBA",
+    accentColor: "#2A7EBD",
   },
   rental: {
     gradient:
       "linear-gradient(180deg, rgba(20, 33, 61, 0.0) 0%, rgba(20, 33, 61, 0.15) 55%, rgba(20, 33, 61, 0.82) 100%)",
-    accentColor: "#5DC1C7",
+    accentColor: "#65C2C8",
   },
   corporate: {
     gradient:

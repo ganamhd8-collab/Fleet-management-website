@@ -362,7 +362,7 @@ export default function HowItWorks() {
         {/* Lower #2a7ebd Ground Band + Horizontal 3-Step Strip (rises cleanly as scroll progresses) */}
         <div
           ref={bandRef}
-          className="absolute inset-x-0 bottom-0 z-20 flex items-center overflow-hidden bg-[#2a7ebd] will-change-transform"
+          className="absolute inset-x-0 bottom-0 z-20 flex items-center overflow-hidden bg-ocean will-change-transform"
           style={{ top: "var(--edge-px)", transform: "translate3d(0, 100%, 0)" }}
         >
           <div
@@ -378,7 +378,7 @@ export default function HowItWorks() {
               >
                 <span className="block">{leadLines[0]}</span>
                 <span className="block">{leadLines[1]}</span>
-                <span className="block text-[#14213D]">{leadLines[2]}</span>
+                <span className="block text-navy">{leadLines[2]}</span>
               </h2>
               <p className="max-w-[260px] text-sm leading-relaxed text-white/85">
                 {leadIntro}
@@ -448,7 +448,7 @@ export default function HowItWorks() {
               settled ? "opacity-100" : "opacity-0"
             }`}
           >
-            <span className="rounded-full border border-white/35 bg-[#2a7ebd]/85 px-5 py-1.5 text-xs font-medium tracking-wider text-white backdrop-blur-sm">
+            <span className="rounded-full border border-white/35 bg-ocean/85 px-5 py-1.5 text-xs font-medium tracking-wider text-white backdrop-blur-sm">
               {lang === "ar" ? "كيف نعمل" : "How It Works"}
             </span>
           </div>

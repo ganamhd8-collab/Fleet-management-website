@@ -12,8 +12,8 @@ export interface LogoProps {
 
 /**
  * Context-aware brand logo for AWA Fleet Guards:
- * - On Dark Backgrounds (tone="light"): renders the white SVG (logo awa.svg)
- * - On Light Backgrounds (tone="dark"): renders the dark blue SVG (awa logo dark blue.svg)
+ * - On Dark Backgrounds (tone="light"): renders /logo-white.svg
+ * - On Light Backgrounds (tone="dark"): renders /logo-dark.svg
  */
 export default function Logo({
   tone = "dark",

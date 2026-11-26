@@ -37,3 +37,15 @@ export const siteConfig = {
 } as const;
 
 export const isDashboardConfigured = siteConfig.dashboardUrl !== "#";
+
+/** Placeholder values (like "[+000 0000 0000]") are hidden until real ones are set. */
+export const isPhoneConfigured = !/^\[|0000/.test(siteConfig.contact.phone);
+
+/** Only social profiles with a real URL are shown. */
+export const activeSocial = siteConfig.social.filter((s) => s.href !== "#");
+
+/** Footer "Privacy Policy" / "Terms" links stay hidden until these pages exist. Set the paths when ready. */
+export const legalLinks = {
+  privacy: "",
+  terms: "",
+};
