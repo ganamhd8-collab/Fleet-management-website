@@ -28,6 +28,15 @@ export const siteConfig = {
     phone: "[+000 0000 0000]",
   },
 
+  /**
+   * Mobile app store links. Leave empty until the app is published; the
+   * buttons then show a short "coming soon" note instead of linking.
+   */
+  appLinks: {
+    ios: process.env.NEXT_PUBLIC_APP_STORE_URL || "",
+    android: process.env.NEXT_PUBLIC_GOOGLE_PLAY_URL || "",
+  },
+
   /** Social placeholders — set href to real profiles when available. */
   social: [
     { id: "linkedin", label: "LinkedIn", href: "#" },

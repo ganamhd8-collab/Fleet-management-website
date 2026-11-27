@@ -3,7 +3,7 @@
 import React from "react";
 import { useLanguage } from "@/components/LanguageProvider";
 import Navbar from "@/components/sections/Navbar";
-import Hero from "@/components/sections/Hero";
+import HeroVideo from "@/components/sections/HeroVideo";
 import TrustedClients from "@/components/sections/TrustedClients";
 import CompanyStats from "@/components/sections/CompanyStats";
 import HomeAbout from "@/components/sections/HomeAbout";
@@ -11,6 +11,7 @@ import Solutions from "@/components/sections/Solutions";
 import HowItWorks from "@/components/sections/HowItWorks";
 import Industries from "@/components/sections/Industries";
 import WhyAWAFleetGuards from "@/components/sections/WhyAWAFleetGuards";
+import AppDownload from "@/components/sections/AppDownload";
 import BookDemo from "@/components/sections/BookDemo";
 import Footer from "@/components/sections/Footer";
 
@@ -29,7 +30,7 @@ export default function HomePage() {
       <Navbar />
 
       <main id="main-content">
-        <Hero />
+        <HeroVideo />
         <TrustedClients />
         <CompanyStats />
         <HomeAbout />
@@ -37,6 +38,7 @@ export default function HomePage() {
         <HowItWorks />
         <Industries />
         <WhyAWAFleetGuards />
+        <AppDownload />
         <BookDemo />
       </main>
 

@@ -6,10 +6,12 @@ import { usePathname } from "next/navigation";
 import { useLanguage } from "@/components/LanguageProvider";
 import Logo from "@/components/ui/Logo";
 import LoginLink from "@/components/ui/LoginLink";
-import { IconMenu, IconClose } from "@/components/ui/Icons";
+import { IconMenu, IconClose, IconGlobe } from "@/components/ui/Icons";
 
 export default function Navbar({ forceTone }: { forceTone?: "dark" | "light" } = {}) {
-  const { t, toggle } = useLanguage();
+  const { t, toggle, lang } = useLanguage();
+  // The switch shows the *other* language, written in that language.
+  const otherLang = lang === "en" ? "ar" : "en";
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [activeId, setActiveId] = useState("home");
@@ -105,40 +107,37 @@ export default function Navbar({ forceTone }: { forceTone?: "dark" | "light" } =
         </nav>
 
         {/* Desktop Actions */}
-        <div className="hidden lg:flex items-center gap-3 shrink-0">
+        <div className="hidden lg:flex items-center gap-4 xl:gap-5 shrink-0">
           <button
             type="button"
             onClick={toggle}
             aria-label={t.nav.switchLabel}
-            className={`min-h-[40px] rounded-full border px-3.5 text-xs font-semibold transition-colors ${
-              isLightBg
-                ? "border-line text-ink hover:border-ink"
-                : "border-white/25 text-white hover:border-white"
+            className={`inline-flex min-h-[40px] items-center gap-2 text-sm font-semibold transition-colors ${
+              isLightBg ? "text-ink-muted hover:text-ink" : "text-white/85 hover:text-white"
             }`}
           >
-            {t.nav.switchTo}
+            <IconGlobe className="h-5 w-5" />
+            <span lang={otherLang}>{t.nav.switchTo}</span>
           </button>
 
           <LoginLink
-            className={`inline-flex min-h-[42px] items-center justify-center gap-2 rounded-full border px-4 text-sm font-semibold transition-all duration-200 ${
-              isLightBg
-                ? "border-navy/20 bg-navy/5 text-navy hover:border-navy hover:bg-navy hover:text-white"
-                : "border-white/30 bg-white/10 text-white hover:border-turquoise hover:bg-turquoise hover:text-navy"
+            whenMissing="pending"
+            className={`btn !min-h-[42px] !px-5 !text-sm bg-[#174E7A] text-white hover:bg-[#123E63] active:scale-[0.97] ${
+              isLightBg ? "shadow-sm" : "ring-1 ring-[#329BCF]/35"
             }`}
           >
             <svg
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth={2}
+              strokeWidth={1.9}
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="h-4 w-4"
+              className="h-4 w-4 shrink-0"
               aria-hidden="true"
             >
-              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-              <polyline points="10 17 15 12 10 7" />
-              <line x1="15" y1="12" x2="3" y2="12" />
+              <circle cx="12" cy="8" r="3.5" />
+              <path d="M5.5 19.5a6.5 6.5 0 0 1 13 0" />
             </svg>
             <span>{t.nav.login}</span>
           </LoginLink>
@@ -154,11 +153,12 @@ export default function Navbar({ forceTone }: { forceTone?: "dark" | "light" } =
             type="button"
             onClick={toggle}
             aria-label={t.nav.switchLabel}
-            className={`min-h-[40px] rounded-full border px-3 text-xs font-semibold ${
-              isLightBg ? "border-line text-ink" : "border-white/25 text-white"
+            className={`inline-flex min-h-[40px] items-center gap-1.5 px-2 text-sm font-semibold ${
+              isLightBg ? "text-ink" : "text-white"
             }`}
           >
-            {t.nav.switchTo}
+            <IconGlobe className="h-5 w-5" />
+            <span lang={otherLang}>{t.nav.switchTo}</span>
           </button>
           <button
             type="button"
@@ -192,20 +192,22 @@ export default function Navbar({ forceTone }: { forceTone?: "dark" | "light" } =
             ))}
           </nav>
           <div className="mt-5 flex flex-col gap-3 border-t border-line pt-5">
-            <LoginLink className="inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-full border border-navy/20 bg-navy/5 px-5 text-sm font-semibold text-navy transition-colors hover:bg-navy hover:text-white">
+            <LoginLink
+              whenMissing="pending"
+              className="btn w-full justify-center !text-sm bg-[#174E7A] text-white hover:bg-[#123E63] active:scale-[0.97]"
+            >
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth={2}
+                strokeWidth={1.9}
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-4 w-4"
+                className="h-4 w-4 shrink-0"
                 aria-hidden="true"
               >
-                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-                <polyline points="10 17 15 12 10 7" />
-                <line x1="15" y1="12" x2="3" y2="12" />
+                <circle cx="12" cy="8" r="3.5" />
+                <path d="M5.5 19.5a6.5 6.5 0 0 1 13 0" />
               </svg>
               <span>{t.nav.login}</span>
             </LoginLink>

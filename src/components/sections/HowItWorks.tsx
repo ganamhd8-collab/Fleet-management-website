@@ -7,8 +7,18 @@ const VIDEO_1080 =
   "https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/409763c0-95f4-49d3-a601-dc564d55072b.mp4";
 const VIDEO_720 =
   "https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/b3718419-7a0a-478d-bfb0-0ff8bef7f3f7.mp4";
-const VIDEO_POSTER =
-  "https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/2307e4bf-be39-42b4-b579-e168aeccabf0.jpg";
+const BASE_PATH =
+  process.env.NEXT_PUBLIC_BASE_PATH ||
+  (process.env.NEXT_PUBLIC_GITHUB_PAGES === "true" ? "/Fleet-management-website" : "");
+
+/** Truck-only frame from the end of the clip (no reach stacker in shot). */
+const VIDEO_POSTER = `${BASE_PATH}/assets/how-it-works/poster.jpg`;
+
+/**
+ * Only the last part of the clip is used: before ~3.9s the reach stacker and
+ * loading scene are in frame. Scrubbing runs from CLIP_START to the end.
+ */
+const CLIP_START = 3.92;
 
 const A = 2.4; // Viewports dedicated to scrubbing the handling video clip
 
@@ -73,13 +83,13 @@ export default function HowItWorks() {
 
   const leadLines =
     lang === "ar"
-      ? ["من ربط المركبات", "إلى إدارة", "أكثر ذكاءً."]
+      ? ["من مركبات متصلة", "إلى تشغيل", "أكثر ذكاءً."]
       : ["FROM CONNECTED VEHICLES", "TO SMARTER", "OPERATIONS."];
 
   const leadIntro =
     lang === "ar"
-      ? "اربط أجهزة أسطولك بمنصتنا المركزية وحوّل بيانات المركبات إلى قرارات تشغيلية دقيقة."
-      : "Connect your fleet hardware to our centralized platform and turn raw vehicle telemetry into actionable operational intelligence.";
+      ? "اربط مركبات أسطولك بمنصة موحدة وحوّل البيانات الفورية إلى قرارات ترفع كفاءة التشغيل وتخفض التكاليف."
+      : "Connect your fleet hardware to one unified platform and turn live vehicle telemetry into measurable operational gains.";
 
   useEffect(() => {
     const updateSource = () => {
@@ -169,7 +179,7 @@ export default function HowItWorks() {
     let rafId = 0;
     let inView = false;
     let isRunning = false;
-    let curTime = 0;
+    let curTime = CLIP_START;
     let lastScrollY = window.scrollY;
     let lastTs = performance.now();
     let smoothedSpeed = 0;
@@ -196,7 +206,9 @@ export default function HowItWorks() {
       const q = clamp(sectionScrollY / (A * vh), 0, 1);
 
       if (video.readyState >= 1 && Number.isFinite(video.duration) && video.duration > 0) {
-        const targetTime = q * Math.min(video.duration, 3.75);
+        const clipEnd = Math.max(CLIP_START, video.duration - 0.02);
+        const clipStart = Math.min(CLIP_START, clipEnd);
+        const targetTime = clipStart + q * (clipEnd - clipStart);
         curTime = reducedMotion ? targetTime : curTime + (targetTime - curTime) * 0.2;
         if (!video.seeking && Math.abs(curTime - video.currentTime) > 1 / 60) {
           video.currentTime = clamp(curTime, 0, Math.max(0, video.duration - 0.02));

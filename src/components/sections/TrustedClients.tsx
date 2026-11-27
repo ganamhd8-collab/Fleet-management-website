@@ -3,6 +3,7 @@
 import React from "react";
 import { useLanguage } from "@/components/LanguageProvider";
 import Reveal from "@/components/ui/Reveal";
+import HandUnderline from "@/components/ui/HandUnderline";
 
 const BASE_PATH =
   process.env.NEXT_PUBLIC_BASE_PATH ||
@@ -89,12 +90,25 @@ export default function TrustedClients() {
       <div className="container">
         <Reveal className="mx-auto max-w-2xl text-center space-y-3">
           <h2 className="text-[clamp(1.75rem,3vw,2.6rem)] font-bold tracking-tight text-navy leading-tight">
-            {t.trustedClients.headline}
+            {(() => {
+              const { headline, highlight } = t.trustedClients;
+              const i = highlight ? headline.indexOf(highlight) : -1;
+              if (i < 0) return headline;
+              return (
+                <>
+                  {headline.slice(0, i)}
+                  <HandUnderline>{highlight}</HandUnderline>
+                  {headline.slice(i + highlight.length)}
+                </>
+              );
+            })()}
           </h2>
 
-          <p className="text-base sm:text-lg text-ink-muted leading-relaxed">
-            {t.trustedClients.subtitle}
-          </p>
+          {t.trustedClients.subtitle && (
+            <p className="text-base sm:text-lg text-ink-muted leading-relaxed">
+              {t.trustedClients.subtitle}
+            </p>
+          )}
         </Reveal>
       </div>
 

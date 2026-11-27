@@ -88,12 +88,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="preconnect" href="https://d2ol7oe51mr4n9.cloudfront.net" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://d2ol7oe51mr4n9.cloudfront.net" />
 
-        {/* LCP: the first frame of the hero sequence is the first thing visitors see */}
+        {/* LCP: poster frame of the hero film, shown until the video starts */}
         <link
           rel="preload"
           as="image"
           type="image/webp"
-          href={`${BASE_PATH}/assets/hero-sequence-v2/frame_0001.webp`}
+          href={`${BASE_PATH}/assets/hero-video/hero-poster.webp`}
           fetchPriority="high"
         />
       </head>
