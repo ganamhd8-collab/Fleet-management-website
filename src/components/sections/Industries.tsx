@@ -18,27 +18,27 @@ const industryTreatments: Record<
 > = {
   logistics: {
     gradient:
-      "linear-gradient(180deg, rgba(20, 33, 61, 0.0) 0%, rgba(20, 33, 61, 0.15) 55%, rgba(20, 33, 61, 0.82) 100%)",
+      "linear-gradient(180deg, rgba(13, 22, 41, 0.24) 0%, rgba(13, 22, 41, 0.34) 46%, rgba(13, 22, 41, 0.74) 76%, rgba(13, 22, 41, 0.94) 100%)",
     accentColor: "#65C2C8",
   },
   distribution: {
     gradient:
-      "linear-gradient(180deg, rgba(20, 33, 61, 0.0) 0%, rgba(20, 33, 61, 0.18) 55%, rgba(20, 33, 61, 0.85) 100%)",
+      "linear-gradient(180deg, rgba(13, 22, 41, 0.24) 0%, rgba(13, 22, 41, 0.36) 46%, rgba(13, 22, 41, 0.76) 76%, rgba(13, 22, 41, 0.95) 100%)",
     accentColor: "#2D9BD0",
   },
   construction: {
     gradient:
-      "linear-gradient(180deg, rgba(20, 33, 61, 0.0) 0%, rgba(20, 33, 61, 0.22) 55%, rgba(20, 33, 61, 0.86) 100%)",
+      "linear-gradient(180deg, rgba(13, 22, 41, 0.26) 0%, rgba(13, 22, 41, 0.38) 46%, rgba(13, 22, 41, 0.78) 76%, rgba(13, 22, 41, 0.95) 100%)",
     accentColor: "#2A7EBD",
   },
   rental: {
     gradient:
-      "linear-gradient(180deg, rgba(20, 33, 61, 0.0) 0%, rgba(20, 33, 61, 0.15) 55%, rgba(20, 33, 61, 0.82) 100%)",
+      "linear-gradient(180deg, rgba(13, 22, 41, 0.24) 0%, rgba(13, 22, 41, 0.36) 46%, rgba(13, 22, 41, 0.76) 76%, rgba(13, 22, 41, 0.94) 100%)",
     accentColor: "#65C2C8",
   },
   corporate: {
     gradient:
-      "linear-gradient(180deg, rgba(20, 33, 61, 0.0) 0%, rgba(20, 33, 61, 0.15) 55%, rgba(20, 33, 61, 0.82) 100%)",
+      "linear-gradient(180deg, rgba(13, 22, 41, 0.24) 0%, rgba(13, 22, 41, 0.36) 46%, rgba(13, 22, 41, 0.76) 76%, rgba(13, 22, 41, 0.94) 100%)",
     accentColor: "#2D9BD0",
   },
 };

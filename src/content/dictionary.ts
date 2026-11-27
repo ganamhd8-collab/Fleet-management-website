@@ -151,7 +151,7 @@ const en = {
         id: "clients",
         value: 95,
         suffix: "+",
-        label: "Enterprise Clients",
+        label: "Enterprises Served",
         description: "Long-term partnerships across logistics, construction, manufacturing, FMCG, and education.",
       },
       {

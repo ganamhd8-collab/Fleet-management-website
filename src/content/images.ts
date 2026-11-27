@@ -22,10 +22,10 @@ export const images = {
     cameras: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=600&q=75",
   },
   industries: {
-    logistics: `${BASE_PATH}/assets/industries/logistics.jpg`,
-    distribution: `${BASE_PATH}/assets/industries/distribution.jpg`,
-    construction: `${BASE_PATH}/assets/industries/construction.jpg`,
-    rental: `${BASE_PATH}/assets/industries/rental.jpg`,
-    corporate: `${BASE_PATH}/assets/industries/corporate.jpg`,
+    logistics: `${BASE_PATH}/assets/industries/logistics.jpg?v=2`,
+    distribution: `${BASE_PATH}/assets/industries/distribution.jpg?v=2`,
+    construction: `${BASE_PATH}/assets/industries/construction.jpg?v=2`,
+    rental: `${BASE_PATH}/assets/industries/rental.jpg?v=2`,
+    corporate: `${BASE_PATH}/assets/industries/corporate.jpg?v=2`,
   },
 } as const;
